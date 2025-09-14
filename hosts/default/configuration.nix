@@ -5,6 +5,8 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
 
+      ../modules/nixos/packages.nix
+      ../modules/nixos/services.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -18,7 +20,6 @@
   # Enable networking
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
-  services.blueman.enable = true;
 
   # bluetooth
   hardware.bluetooth.enable = true;
@@ -41,14 +42,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-   # Configure keymap in X11
-   services.xserver.xkb = {
-     layout = "us";
-     variant = "";
-   };
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
 
   ## ## ## ## ##
   ## HYPRLAND ##
@@ -57,22 +50,7 @@
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;
   xdg.portal.enable = true;
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  
-
-  # SDDM
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.theme = "catppuccin-mocha-mauve";
-
-  # sound
-  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
-  services.pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      jack.enable = true;
-  };
 
   # programs
   programs.fish.enable = true;
@@ -150,102 +128,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-     # system
-     curl 
-     wget
-     blueman # services.blueman.enable = true; in home-manager
-     brightnessctl
-     cmake
-     go
-     gcc
-     #gruvbox-plus-icons
-     kanata
-     networkmanager
-     networkmanagerapplet
-     nodejs
-     libnotify
-     unzip 
-     stow
-     python3
-     home-manager
-     xwayland-satellite
-     kdePackages.dolphin
-
-     # applications
-     obsidian
-     btop
-     pcmanfm
-     firefox
-     onlyoffice-bin
-     swaybg
-     ydotool
-     polkit_gnome
-
-     # wayland / hyprland
-     cliphist
-     hyprland
-     hyprlock
-     hyprpaper
-     hyprshot 
-     waybar # configure in hm 
-     swaynotificationcenter    
-     wlogout
-
-     # git 
-     git
-     gh
-     lazygit
-
-     # shell
-     fuzzel
-     alacritty
-     fzf
-     eza
-     bat
-     fastfetch
-     zoxide
-     tmux
-     uv
-     opencode
-     starship
-
-     # neovim
-     neovim
-     ripgrep
-     gnumake
-     ruff
-      kitty
-      (pkgs.catppuccin-sddm.override { flavor = "mocha"; })
-   ];
-
-  environment.localBinInPath = true;
-
-  # List services that you want to enable:
-  #services.bluetooth.enable = true;
-
-  services.kanata = {
-      enable = true;
-      keyboards = {
-          internalKeyboard = {
-              devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
-              extraDefCfg = "process-unmapped-keys yes";
-              config = ''
-                  (defsrc
-                      caps
-                  )
-
-                  (defalias
-                      escctrl (tap-hold 100 125 esc lctrl)
-                  )
-
-                  (deflayer base
-                      @escctrl
-                  )
-              '';
-          };
-      };
-  };
 
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
