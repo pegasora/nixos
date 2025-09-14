@@ -5,11 +5,17 @@
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
 
-      ../modules/nixos/packages.nix
-      ../modules/nixos/services.nix
+      ../../modules/nixos/packages.nix
+      ../../modules/nixos/services.nix
     ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 10d";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
