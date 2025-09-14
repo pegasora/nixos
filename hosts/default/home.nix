@@ -8,7 +8,7 @@
     ../../modules/home-manager/cli/starship.nix
 
     #desktop
-    ../../modules/home-manager/desktop/hyprland/hyprland.nix
+    ../../modules/home-manager/wm/hyprland/hyprland.nix
 
     #editors
 
