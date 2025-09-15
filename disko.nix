@@ -6,6 +6,7 @@
     disk = {
       ${disk} = {
         type = "disk";
+	device = "/dev/${disk}"; 
         content = {
           type = "gpt";
           partitions = {
