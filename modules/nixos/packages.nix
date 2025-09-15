@@ -32,6 +32,8 @@
      swaybg
      ydotool
      polkit_gnome
+     gparted
+     woeusb
 
      # wayland / hyprland
      cliphist

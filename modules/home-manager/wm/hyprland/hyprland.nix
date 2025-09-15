@@ -112,7 +112,7 @@
         "hypridle"
         "nm-applet"
         "blueman-applet"
-        "/usr/lib/polkit-kde-authentication-agent-1"
+         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "wl-paste --type text --watch cliphist store"
         # Import Wayland environment variables for systemd user services
         "systemctl --user import-environment XDG_RUNTIME_DIR WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS"
@@ -235,5 +235,6 @@
     fuzzel # For application launcher
     brightnessctl # For brightness control
     pulseaudio # For volume control (wpctl is part of it)
+    polkit_gnome # For authentication dialogs
   ];
 }

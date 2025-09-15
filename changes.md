@@ -151,3 +151,12 @@ Next steps:
 2025-09-13 — Hyprland Cursor Fix
 
 - Added cursor settings to disable hardware cursors and set inactive timeout to 0 for normal cursor appearance.
+
+---
+
+2025-09-14 — Polkit Authentication Agent Fix
+
+- Fixed GParted authentication issue by correcting the Polkit authentication agent path in Hyprland configuration
+- Changed from incorrect KDE agent path "/usr/lib/polkit-kde-authentication-agent-1" to proper GNOME agent path "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+- Added polkit_gnome to home.packages in hyprland.nix to ensure the package is available
+- This resolves the "Error executing command as another user: No authentication agent found" error when running GParted

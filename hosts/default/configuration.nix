@@ -134,6 +134,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  security.polkit.enable = true;
+  environment.systemPackages = with pkgs; [ polkit_gnome ];
+  services.dbus.packages = with pkgs; [ polkit_gnome ];
 
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
