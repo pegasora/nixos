@@ -20,7 +20,7 @@ lsblk
 
 5. Partition, Format, and Mount with Disko
 ```bash
-nix run github:nix-community/disko --extra-experimental-features 'nix-command flakes' -- --mode disko --arg configuration '{ imports = [ /tmp/nixos-config/disko.nix ]; }'
+sudo nix run github:nix-community/disko --extra-experimental-features 'nix-command flakes' -- --mode disko /tmp/nixos-config/disko.nix
 ```
 
 6. Generate Hardware config 
