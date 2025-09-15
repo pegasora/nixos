@@ -32,7 +32,7 @@ nixos-generate-config --root /mnt --no-filesystems
 
 ### copy your config dir to the mounted system
 ```bash
-rsync -av /tmp/nixos-config/ /mnt/etc/nixos/
+sudo cp -r /tmp/nixos-config/* /mnt/etc/nixos/
 ```
 
 ### Build and install
