@@ -28,15 +28,16 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
+	  disko.nixosModules.disko
           ./hosts/default/configuration.nix
-          inputs.home-manager.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
 	
 	  # Add these for Disko:
           disko.nixosModules.disko
           ./disko.nix
           {
             # Pass your disk to Disko
-            disko.devices.disk.mainDisk = "/dev/nvme0n1";  # Replace with your disk
+            disko.devices.disk.nvme0n1.device = "/dev/nvme0n1";  # Replace with your disk
             # Enable Disko (runs on boot to ensure mounts)
             disko.enableConfig = true;
             # Bootloader (adjust for your setup)

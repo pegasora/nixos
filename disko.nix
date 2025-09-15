@@ -4,9 +4,8 @@
 {
   disko.devices = {
     disk = {
-      ${disk} = {
+      nvme0n1 = {
         type = "disk";
-	device = "/dev/${disk}"; 
         content = {
           type = "gpt";
           partitions = {
