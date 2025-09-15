@@ -12,14 +12,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # fonts 
     monolisa = { url = "github:pegasora/Monolisa"; flake = false; };
     comic-code = { url = "github:pegasora/Comic-Code"; flake = false; };
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, disko, ... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
@@ -27,6 +30,22 @@
         modules = [
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.default
+	
+	  # Add these for Disko:
+          disko.nixosModules.disko
+          ./disko.nix
+          {
+            # Pass your disk to Disko
+            disko.devices.disk.mainDisk = "/dev/nvme0n1";  # Replace with your disk
+            # Enable Disko (runs on boot to ensure mounts)
+            disko.enableConfig = true;
+            # Bootloader (adjust for your setup)
+            boot.loader = {
+              systemd-boot.enable = true;
+              efi.canTouchEfiVariables = true;
+          };
+          # Remove any conflicting fileSystems from hardware-configuration.nix later
+        }
         ];
       };
     };
