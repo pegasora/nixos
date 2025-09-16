@@ -1,6 +1,13 @@
 # nixos
 
-## New system
+## New system setup (with installer)
+- do a barebones install of nixos 
+- enable git, vim 
+- enable flakes and nix-command 
+- download this repo to home dir 
+- switch to it
+
+## New system Setup (with disko)
 1. update 
 ```bash
 nix-channel --update
