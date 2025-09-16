@@ -12,10 +12,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    disko = {
-      url = "github:nix-community/disko";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nix-snapd.url = "github:nix-community/nix-snapd";
+    #disko = {
+    #  url = "github:nix-community/disko";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     # fonts 
     monolisa = { url = "github:pegasora/Monolisa"; flake = false; };
@@ -28,25 +29,29 @@
       nixos = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [
-	  disko.nixosModules.disko
+	  #disko.nixosModules.disko
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.home-manager
 	
+	  #nix-snapd.nixosModules.default
+          #{
+          #  services.snap.enable = true;
+          #}
 	  # Add these for Disko:
-          disko.nixosModules.disko
-          ./disko.nix
-          {
-            # Pass your disk to Disko
-            disko.devices.disk.nvme0n1.device = "/dev/nvme0n1";  # Replace with your disk
-            # Enable Disko (runs on boot to ensure mounts)
-            disko.enableConfig = true;
-            # Bootloader (adjust for your setup)
-            boot.loader = {
-              systemd-boot.enable = true;
-              efi.canTouchEfiVariables = true;
-          };
-          # Remove any conflicting fileSystems from hardware-configuration.nix later
-        }
+          #disko.nixosModules.disko
+          #./disko.nix
+          #{
+          #  # Pass your disk to Disko
+          #  disko.devices.disk.nvme0n1.device = "/dev/nvme0n1";  # Replace with your disk
+          #  # Enable Disko (runs on boot to ensure mounts)
+          #  disko.enableConfig = true;
+          #  # Bootloader (adjust for your setup)
+          #  boot.loader = {
+          #    systemd-boot.enable = true;
+          #    efi.canTouchEfiVariables = true;
+          #  };
+          ## Remove any conflicting fileSystems from hardware-configuration.nix later
+          #}
         ];
       };
     };

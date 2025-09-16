@@ -22,6 +22,8 @@
      home-manager
      xwayland-satellite
      kdePackages.dolphin
+     exfat
+     displaylink
 
      # applications
      obsidian
@@ -34,6 +36,7 @@
      polkit_gnome
      gparted
      woeusb
+     pavucontrol
 
      # wayland / hyprland
      cliphist

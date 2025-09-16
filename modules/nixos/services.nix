@@ -16,9 +16,13 @@
   services.displayManager.sddm.theme = "catppuccin-mocha-mauve";
 
   # sound
-  services.pulseaudio.enable = false;
-  services.pipewire = {
+  services.pulseaudio = {
       enable = true;
+      support32Bit = true;
+
+  };
+  services.pipewire = {
+      enable = false;
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
@@ -48,4 +52,6 @@
           };
       };
   };
+  services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+  services.udisks2.enable = true;
 }

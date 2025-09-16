@@ -26,6 +26,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
+  programs.xwayland.enable = true;
+  # Ensure Wayland support for Electron
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";  # Force Electron to use Wayland
+    ELECTRON_OZONE_PLATFORM_HINT = "auto";  # Let Electron pick Wayland/X11
+  };
 
   # bluetooth
   hardware.bluetooth.enable = true;
@@ -54,9 +60,17 @@
   ## ## ## ## ##
   programs.hyprland.enable = true;
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;
-  xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  
   security.rtkit.enable = true;
+
+  # Enable XDG portals for Wayland (required for Snaps to access display/file dialogs)
+  xdg = { 
+    portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  # For GNOME; use xdg-desktop-portal-kde for KDE
+      wlr.enable = true;  # General Wayland support (safe even on GNOME)
+    };
+    mime.enable = true;  # Enable MIME and URL handler registration
+  };
 
   # programs
   programs.fish.enable = true;
@@ -137,6 +151,8 @@
   security.polkit.enable = true;
   environment.systemPackages = with pkgs; [ polkit_gnome ];
   services.dbus.packages = with pkgs; [ polkit_gnome ];
+
+
 
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
