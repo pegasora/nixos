@@ -6,7 +6,8 @@ result-*
 .direnv
 
 # ignore hardware-config
-hardware-configuration.nix 
+#hardware-configuration.nix 
+# cant do this. it messes with the rebuild via flakes. it expects a clean git workspace, with hardware-config included.
 
 #  secrets
 Secrets/*

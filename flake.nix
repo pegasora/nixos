@@ -6,21 +6,19 @@
 
     # hyprland 
     hyprland.url = "github:hyprwm/Hyprland";
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # fonts 
+    monolisa = { url = "github:pegasora/Monolisa"; flake = false; };
+    comic-code = { url = "github:pegasora/Comic-Code"; flake = false; };
 
     #nix-snapd.url = "github:nix-community/nix-snapd";
     #disko = {
     #  url = "github:nix-community/disko";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
-
-    # fonts 
-    monolisa = { url = "github:pegasora/Monolisa"; flake = false; };
-    comic-code = { url = "github:pegasora/Comic-Code"; flake = false; };
   };
 
   outputs = { self, nixpkgs, disko, ... }@inputs: {
@@ -50,7 +48,6 @@
           #    systemd-boot.enable = true;
           #    efi.canTouchEfiVariables = true;
           #  };
-          ## Remove any conflicting fileSystems from hardware-configuration.nix later
           #}
         ];
       };
