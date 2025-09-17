@@ -24,6 +24,7 @@
      kdePackages.dolphin
      exfat
      displaylink
+     tailscale
 
      # applications
      obsidian
