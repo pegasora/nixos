@@ -25,6 +25,8 @@
      exfat
      displaylink
      tailscale
+     system-config-printer
+     
 
      # applications
      obsidian
@@ -66,6 +68,8 @@
      uv
      opencode
      starship
+     nixfmt-rfc-style 
+     nixd
 
      # neovim
      neovim
@@ -73,6 +77,7 @@
      gnumake
      ruff
       kitty
+      lua-language-server
       (pkgs.catppuccin-sddm.override { flavor = "mocha"; })
    ];
 

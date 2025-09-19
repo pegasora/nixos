@@ -12,6 +12,7 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.system-config-printer.enable = true;
 
   # SDDM
   services.displayManager.sddm.enable = true;
