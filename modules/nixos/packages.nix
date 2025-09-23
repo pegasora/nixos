@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -72,6 +72,7 @@
      nixd
 
      # neovim
+     inputs.nvf-flake.packages.${pkgs.system}.default
      neovim
      ripgrep
      gnumake
