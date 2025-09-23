@@ -139,7 +139,7 @@
 
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs; "split-monitor-workspaces" = inputs."split-monitor-workspaces"; };
     users = {
       pegasora = import ./home.nix;
     };
@@ -150,6 +150,7 @@
 
   security.polkit.enable = true;
   environment.systemPackages = with pkgs; [ polkit_gnome ];
+  environment.variables.EDITOR = "nvim";
   services.dbus.packages = with pkgs; [ polkit_gnome ];
 
 

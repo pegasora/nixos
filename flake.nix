@@ -6,6 +6,16 @@
 
     # hyprland 
     hyprland.url = "github:hyprwm/Hyprland";
+
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland";    
+    };
+    # hyprland-plugins repo
+    #hyprland-plugins = {
+    #  url = "github:hyprwm/hyprland-plugins";
+    #  inputs.nixpkgs.follows = "hyprland";
+    #};
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,13 +29,17 @@
     #  url = "github:nix-community/disko";
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
+    nvf-flake = {
+      url = "github:pegasora/nvf-flake";
+      inputs.nixpkgs.follows = "nixpkgs";  
+    };
   };
 
-  outputs = { self, nixpkgs, disko, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, split-monitor-workspaces, ... }@inputs: {
     # use "nixos", or your hostname as the name of the configuration
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
+        specialArgs = { inherit inputs split-monitor-workspaces; };
         modules = [
 	  #disko.nixosModules.disko
           ./hosts/default/configuration.nix
