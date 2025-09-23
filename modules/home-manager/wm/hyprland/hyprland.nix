@@ -1,9 +1,12 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, split-monitor-workspaces, ... }:
 
 {
   # Manage Hyprland via the wayland.windowManager module
   wayland.windowManager.hyprland = {
     enable = true;
+    plugins = [
+      split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces
+    ];
 
     # General settings
     settings = {
@@ -67,11 +70,12 @@
          };
        };
 
-       # Cursor settings
-       cursor = {
-         no_hardware_cursors = true;
-         inactive_timeout = 0;
-       };
+        # Cursor settings
+        cursor = {
+          # Allow hardware cursors so the desktop cursor theme is used
+          no_hardware_cursors = false;
+          inactive_timeout = 0;
+        };
 
       # Gestures
       gestures = {
@@ -98,7 +102,9 @@
       # Environment variables
       env = [
         "XCURSOR_SIZE,24"
+        "XCURSOR_THEME,Adwaita"
         "HYPRCURSOR_SIZE,24"
+        "HYPRCURSOR_THEME,Adwaita"
       ];
 
       # Autostart commands (converted from exec-once)
@@ -144,28 +150,28 @@
         "SUPER, J, movefocus, d"
 
         # Switching workspaces
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-        "SUPER, 0, workspace, 10"
+        "SUPER, 1, split-workspace, 1"
+        "SUPER, 2, split-workspace, 2"
+        "SUPER, 3, split-workspace, 3"
+        "SUPER, 4, split-workspace, 4"
+        "SUPER, 5, split-workspace, 5"
+        "SUPER, 6, split-workspace, 6"
+        "SUPER, 7, split-workspace, 7"
+        "SUPER, 8, split-workspace, 8"
+        "SUPER, 9, split-workspace, 9"
+        "SUPER, 0, split-workspace, 10"
 
         # Move window to workspace
-        "SUPER SHIFT, 1, movetoworkspace, 1"
-        "SUPER SHIFT, 2, movetoworkspace, 2"
-        "SUPER SHIFT, 3, movetoworkspace, 3"
-        "SUPER SHIFT, 4, movetoworkspace, 4"
-        "SUPER SHIFT, 5, movetoworkspace, 5"
-        "SUPER SHIFT, 6, movetoworkspace, 6"
-        "SUPER SHIFT, 7, movetoworkspace, 7"
-        "SUPER SHIFT, 8, movetoworkspace, 8"
-        "SUPER SHIFT, 9, movetoworkspace, 9"
-        "SUPER SHIFT, 0, movetoworkspace, 10"
+        "SUPER SHIFT, 1, split-movetoworkspace, 1"
+        "SUPER SHIFT, 2, split-movetoworkspace, 2"
+        "SUPER SHIFT, 3, split-movetoworkspace, 3"
+        "SUPER SHIFT, 4, split-movetoworkspace, 4"
+        "SUPER SHIFT, 5, split-movetoworkspace, 5"
+        "SUPER SHIFT, 6, split-movetoworkspace, 6"
+        "SUPER SHIFT, 7, split-movetoworkspace, 7"
+        "SUPER SHIFT, 8, split-movetoworkspace, 8"
+        "SUPER SHIFT, 9, split-movetoworkspace, 9"
+        "SUPER SHIFT, 0, split-movetoworkspace, 10"
 
         # Scroll through existing workspaces with mainMod + scroll
         "SUPER, mouse_down, workspace, e+1"
