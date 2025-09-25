@@ -1,13 +1,18 @@
-{ config, pkgs, lib, inputs, ... }:
-
 {
-  imports = [ 
-      ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
+  imports = [
+    ./hardware-configuration.nix
+    inputs.home-manager.nixosModules.default
+    inputs.spicetify-nix.nixosModules.default
 
-      ../../modules/nixos/packages.nix
-      ../../modules/nixos/services.nix
-    ];
+    ../../modules/nixos/packages.nix
+    ../../modules/nixos/services.nix
+  ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
@@ -27,10 +32,33 @@
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
   programs.xwayland.enable = true;
+  programs.spicetify = let
+    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  in {
+    enable = true;
+
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      hidePodcasts
+      shuffle # shuffle+ (special characters are sanitized out of extension names)
+    ];
+    enabledCustomApps = with spicePkgs.apps; [
+      newReleases
+      ncsVisualizer
+    ];
+    enabledSnippets = with spicePkgs.snippets; [
+      rotatingCoverart
+      pointer
+    ];
+
+    theme = spicePkgs.themes.catppuccin;
+    colorScheme = "mocha";
+  };
+
   # Ensure Wayland support for Electron
   environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";  # Force Electron to use Wayland
-    ELECTRON_OZONE_PLATFORM_HINT = "auto";  # Let Electron pick Wayland/X11
+    NIXOS_OZONE_WL = "1"; # Force Electron to use Wayland
+    ELECTRON_OZONE_PLATFORM_HINT = "auto"; # Let Electron pick Wayland/X11
   };
 
   # bluetooth
@@ -54,7 +82,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-
   ## ## ## ## ##
   ## HYPRLAND ##
   ## ## ## ## ##
@@ -63,13 +90,13 @@
   security.rtkit.enable = true;
 
   # Enable XDG portals for Wayland (required for Snaps to access display/file dialogs)
-  xdg = { 
+  xdg = {
     portal = {
       enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];  # For GNOME; use xdg-desktop-portal-kde for KDE
-      wlr.enable = true;  # General Wayland support (safe even on GNOME)
+      extraPortals = [pkgs.xdg-desktop-portal-gtk]; # For GNOME; use xdg-desktop-portal-kde for KDE
+      wlr.enable = true; # General Wayland support (safe even on GNOME)
     };
-    mime.enable = true;  # Enable MIME and URL handler registration
+    mime.enable = true; # Enable MIME and URL handler registration
   };
 
   # programs
@@ -84,15 +111,15 @@
   users.users.pegasora = {
     isNormalUser = true;
     description = "pegasora";
-    extraGroups = [ 
-      "networkmanager" 
+    extraGroups = [
+      "networkmanager"
       "wheel"
       "audio"
       "flatpak"
       "input"
       "video"
       "plugdev"
-      ];
+    ];
     packages = with pkgs; [];
     shell = pkgs.fish;
     group = "pegasora";
@@ -103,31 +130,31 @@
       corefonts
       vistafonts
 
-    (stdenv.mkDerivation {
-      pname = "monolisa-fonts";
-      version = "2025-09-13";
-      src = inputs.monolisa;
-      dontBuild = true;
-      installPhase = ''
-        mkdir -p "$out/share/fonts/truetype/MonoLisa"
-        for f in "$src"/*.ttf; do
-          [ -e "$f" ] || continue
-          cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
-        done
-      '';
-    })
-    (stdenv.mkDerivation {
-      pname = "comiccode-font";
-      version = "2025-09-13";
-      src = inputs.comic-code;
-      dontBuild = true;
-      installPhase = ''
-        mkdir -p "$out/share/fonts/truetype/Comic-Code"
-        for f in "$src"/*.ttf; do
-          [ -e "$f" ] || continue
-          cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
-        done
-      '';
+      (stdenv.mkDerivation {
+        pname = "monolisa-fonts";
+        version = "2025-09-13";
+        src = inputs.monolisa;
+        dontBuild = true;
+        installPhase = ''
+          mkdir -p "$out/share/fonts/truetype/MonoLisa"
+          for f in "$src"/*.ttf; do
+            [ -e "$f" ] || continue
+            cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
+          done
+        '';
+      })
+      (stdenv.mkDerivation {
+        pname = "comiccode-font";
+        version = "2025-09-13";
+        src = inputs.comic-code;
+        dontBuild = true;
+        installPhase = ''
+          mkdir -p "$out/share/fonts/truetype/Comic-Code"
+          for f in "$src"/*.ttf; do
+            [ -e "$f" ] || continue
+            cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
+          done
+        '';
       })
     ];
 
@@ -137,9 +164,11 @@
     };
   };
 
-
   home-manager = {
-    extraSpecialArgs = { inherit inputs; "split-monitor-workspaces" = inputs."split-monitor-workspaces"; };
+    extraSpecialArgs = {
+      inherit inputs;
+      "split-monitor-workspaces" = inputs."split-monitor-workspaces";
+    };
     users = {
       pegasora = import ./home.nix;
     };
@@ -149,14 +178,11 @@
   nixpkgs.config.allowUnfree = true;
 
   security.polkit.enable = true;
-  environment.systemPackages = with pkgs; [ polkit_gnome ];
+  environment.systemPackages = with pkgs; [polkit_gnome];
   environment.variables.EDITOR = "nvim";
-  services.dbus.packages = with pkgs; [ polkit_gnome ];
-
-
+  services.dbus.packages = with pkgs; [polkit_gnome];
 
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
   # NONONONONONONO DO NOT CHANGE THIS
-
 }

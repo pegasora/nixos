@@ -2,8 +2,8 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = ["~/nixos/modules/home-manager/wm/hyprland/files/wallpapers/golden-gorge.jpg"];
-      wallpaper = ["~/nixos/modules/home-manager/wm/hyprland/files/wallpapers/golden-gorge.jpg"];
+      preload = ["$HOME/.config/hypr/wallpapers/golden-gorge.jpg"];
+      wallpaper = [",$HOME/.config/hypr/wallpapers/golden-gorge.jpg"];
     };
   };
 }

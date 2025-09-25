@@ -4,12 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # hyprland 
+    # hyprland
     hyprland.url = "github:hyprwm/Hyprland";
 
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";    
+      inputs.hyprland.follows = "hyprland";
     };
     # hyprland-plugins repo
     #hyprland-plugins = {
@@ -20,9 +20,15 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # fonts 
-    monolisa = { url = "github:pegasora/Monolisa"; flake = false; };
-    comic-code = { url = "github:pegasora/Comic-Code"; flake = false; };
+    # fonts
+    monolisa = {
+      url = "github:pegasora/Monolisa";
+      flake = false;
+    };
+    comic-code = {
+      url = "github:pegasora/Comic-Code";
+      flake = false;
+    };
 
     #nix-snapd.url = "github:nix-community/nix-snapd";
     #disko = {
@@ -31,25 +37,33 @@
     #};
     nvf-flake = {
       url = "github:pegasora/nvf-flake";
-      inputs.nixpkgs.follows = "nixpkgs";  
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
-  outputs = { self, nixpkgs, home-manager, split-monitor-workspaces, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    split-monitor-workspaces,
+    ...
+  } @ inputs: {
     # use "nixos", or your hostname as the name of the configuration
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs split-monitor-workspaces; };
+        specialArgs = {inherit inputs split-monitor-workspaces;};
         modules = [
-	  #disko.nixosModules.disko
+          #disko.nixosModules.disko
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.home-manager
-	
-	  #nix-snapd.nixosModules.default
+
+          #nix-snapd.nixosModules.default
           #{
           #  services.snap.enable = true;
           #}
-	  # Add these for Disko:
+          # Add these for Disko:
           #disko.nixosModules.disko
           #./disko.nix
           #{

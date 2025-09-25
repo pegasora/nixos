@@ -1,6 +1,10 @@
-{ config, pkgs, lib, split-monitor-workspaces, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  split-monitor-workspaces,
+  ...
+}: {
   # Manage Hyprland via the wayland.windowManager module
   wayland.windowManager.hyprland = {
     enable = true;
@@ -10,7 +14,7 @@
 
     # General settings
     settings = {
-      general = { 
+      general = {
         gaps_in = 0;
         gaps_out = 0;
         border_size = 1;
@@ -53,29 +57,29 @@
         focus_on_activate = true;
       };
 
-       # Input settings
-       input = {
-         kb_layout = "us";
-         kb_variant = "";
-         kb_model = "";
-         kb_options = "";
-         kb_rules = "";
-         follow_mouse = 1;
-         sensitivity = 0;
-         natural_scroll = true;
-         touchpad = {
-           natural_scroll = true;
-           clickfinger_behavior = true;
-           "tap-to-click" = true;
-         };
-       };
-
-        # Cursor settings
-        cursor = {
-          # Allow hardware cursors so the desktop cursor theme is used
-          no_hardware_cursors = false;
-          inactive_timeout = 0;
+      # Input settings
+      input = {
+        kb_layout = "us";
+        kb_variant = "";
+        kb_model = "";
+        kb_options = "";
+        kb_rules = "";
+        follow_mouse = 1;
+        sensitivity = 0;
+        natural_scroll = true;
+        touchpad = {
+          natural_scroll = true;
+          clickfinger_behavior = true;
+          "tap-to-click" = true;
         };
+      };
+
+      # Cursor settings
+      cursor = {
+        # Allow hardware cursors so the desktop cursor theme is used
+        no_hardware_cursors = false;
+        inactive_timeout = 0;
+      };
 
       # Gestures
       gestures = {
@@ -118,10 +122,13 @@
         "hypridle"
         "nm-applet"
         "blueman-applet"
-         "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
+        "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1"
         "wl-paste --type text --watch cliphist store"
         # Import Wayland environment variables for systemd user services
         "systemctl --user import-environment XDG_RUNTIME_DIR WAYLAND_DISPLAY DISPLAY DBUS_SESSION_BUS_ADDRESS"
+        "xdg-desktop-portal-hyprland"
+        "xdg-desktop-portal-wlr"
+        "xdg-desktop-portal-gtk"
       ];
 
       # Keybindings (converted from binds.conf)
@@ -187,6 +194,12 @@
         ",XF86AudioMicMute, exec, ${pkgs.pulseaudio}/bin/wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
         ",XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%+"
         ",XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+      ];
+
+      # mouse keybindings
+      bindm = [
+        "SUPER, mouse:272, movewindow"
+        "SUPER, mouse:273, resizewindow"
       ];
     };
   };
