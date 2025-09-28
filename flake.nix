@@ -1,7 +1,9 @@
 {
   description = "Nixos config flake";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    niri.url = "github:sodiboo/niri-flake";
     hyprland.url = "github:hyprwm/Hyprland";
     split-monitor-workspaces = {
       url = "github:Duckonaut/split-monitor-workspaces";
@@ -32,6 +34,7 @@
     nixpkgs,
     home-manager,
     split-monitor-workspaces,
+    niri,
     ...
   } @ inputs: {
     nixosConfigurations = {
