@@ -21,9 +21,9 @@
   services.system-config-printer.enable = true;
 
   # SDDM
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
-  services.displayManager.sddm.theme = "catppuccin-mocha-mauve";
+  #services.displayManager.sddm.enable = true;
+  #services.displayManager.sddm.wayland.enable = true;
+  #services.displayManager.sddm.theme = "catppuccin-mocha-mauve";
 
   # sound
   services.pulseaudio = {
