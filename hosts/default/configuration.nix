@@ -14,13 +14,15 @@
     ../../modules/nixos/services.nix
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
-  };
+   nixpkgs.overlays = [ inputs.niri.overlays.niri ];
+
+   nix.gc = {
+     automatic = true;
+     dates = "weekly";
+     #options = "--delete-older-than 10d";
+   };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -85,7 +87,7 @@
   ## ## ## ## ##
   ## HYPRLAND ##
   ## ## ## ## ##
-  programs.hyprland.enable = true;
+  programs.hyprland.enable = false;
   programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;
   security.rtkit.enable = true;
 
@@ -99,10 +101,10 @@
     mime.enable = true; # Enable MIME and URL handler registration
   };
 
-  # programs
-  programs.fish.enable = true;
-  programs.niri.enable = false; # disabled in favor of Hyprland
-  programs.lazygit.enable = true;
+   # programs
+   programs.fish.enable = true;
+   programs.niri.enable = true;
+   programs.lazygit.enable = true;
 
   # group
   users.groups.pegasora = {};
@@ -180,9 +182,14 @@
   security.polkit.enable = true;
   environment.systemPackages = with pkgs; [polkit_gnome];
   environment.variables.EDITOR = "nvim";
-  services.dbus.packages = with pkgs; [polkit_gnome];
+   services.dbus.packages = with pkgs; [polkit_gnome];
 
-  # NEVER CHANGE THIS
+   services.displayManager.sddm = {
+     wayland.enable = true;
+     enable = true;
+   };
+
+   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
   # NONONONONONONO DO NOT CHANGE THIS
 }

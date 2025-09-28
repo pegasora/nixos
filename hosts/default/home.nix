@@ -7,7 +7,12 @@
   imports = [
     #cli
     ../../modules/home-manager/default.nix
+    inputs.niri.homeModules.niri
   ];
+
+  programs.niri.package = inputs.niri.packages.${pkgs.system}.niri-unstable.overrideAttrs (old: {
+    doCheck = false;
+  });
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "pegasora";
