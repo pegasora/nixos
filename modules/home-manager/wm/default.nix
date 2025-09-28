@@ -1,7 +1,7 @@
 {
   imports = [
     #./dwm
-    ./hyprland
-    #./niri
+    #./hyprland
+    ./niri
   ];
 }

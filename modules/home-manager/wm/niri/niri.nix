@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+ { config, pkgs, ... }:
 
 {
-  home.file.".config/niri/config.kdl".text = ''
+  programs.niri.config = ''
 input {
     keyboard {
         xkb {
+            layout "us"
         }
         numlock
     }
