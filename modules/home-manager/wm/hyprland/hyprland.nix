@@ -139,7 +139,7 @@
         "SUPER, E, exec, ${pkgs.kdePackages.dolphin}/bin/dolphin"
         "SUPER, SPACE, exec, ${pkgs.fuzzel}/bin/fuzzel"
         "SUPER, P, exec, ${pkgs.wlogout}/bin/wlogout"
-        "SUPER, F, exec, ${pkgs.firefox}/bin/firefox"
+        "SUPER, F, exec, flatpak run com.vivaldi.Vivaldi"
 
         "SUPER, B, exec, ~/.config/hypr/scripts/dashlane-fuzzel.sh"
         "SUPER, N, exec, ${pkgs.swaynotificationcenter}/bin/swaync-client -t -sw"

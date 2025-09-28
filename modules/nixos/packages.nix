@@ -34,6 +34,8 @@
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
+    qt6.qtwayland
+    libsecret
 
     # applications
     obsidian
@@ -49,7 +51,6 @@
     pavucontrol
     spotify
     #librewolf
-    vivaldi
     discord
 
     # wayland / hyprland
