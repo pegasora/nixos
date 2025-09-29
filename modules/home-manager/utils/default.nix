@@ -5,5 +5,6 @@
     ./hyprpaper.nix
     ./waybar.nix
     ./swaync.nix
+    ./outlook-for-linux.nix
   ];
 }
