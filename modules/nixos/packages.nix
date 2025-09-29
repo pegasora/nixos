@@ -36,6 +36,7 @@
     xdg-desktop-portal-wlr
     qt6.qtwayland
     libsecret
+    appimage-run
 
     # applications
     obsidian
@@ -51,7 +52,7 @@
     pavucontrol
     spotify
     discord
-    vivaldi
+    #vivaldi
 
     # wayland / hyprland
     cliphist
