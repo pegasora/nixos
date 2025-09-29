@@ -3,12 +3,12 @@
 ## quick 
 - add fira code fonts
 - look into typs/typst
-- nushell 
 - helix? i dont think so but idk 
 - yazi? could be sick 
 - look into justfile(s)
 
 ## nixos
+https://github.com/nix-community/templates/tree/main
 
 ## home-manager
 
