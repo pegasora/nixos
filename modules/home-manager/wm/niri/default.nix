@@ -74,7 +74,7 @@ in {
         "super+e".action.spawn = "dolphin";
         "super+p".action.spawn = "wlogout";
         "super+o".action.spawn = "obsidian";
-        "super+f".action.spawn = "firefox";
+        "super+f".action.spawn = "vivaldi";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
 

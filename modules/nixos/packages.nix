@@ -50,8 +50,8 @@
     woeusb
     pavucontrol
     spotify
-    #librewolf
     discord
+    vivaldi
 
     # wayland / hyprland
     cliphist
@@ -70,13 +70,12 @@
 
     # shell
     fuzzel
-    alacritty
     fzf
     eza
     bat
     fastfetch
     zoxide
-    tmux
+    zellij
     uv
     opencode
     starship
@@ -89,7 +88,6 @@
     ripgrep
     gnumake
     ruff
-    kitty
     lua-language-server
     (pkgs.catppuccin-sddm.override {flavor = "mocha";})
   ];

@@ -189,7 +189,16 @@
     wayland.enable = true;
     enable = true;
   };
-
+  boot = {
+    extraModulePackages = [config.boot.kernelPackages.evdi];
+    initrd = {
+      # List of modules that are always loaded by the initrd.
+      kernelModules = [
+        "evdi"
+      ];
+    };
+  };
+  systemd.services.dlm.wantedBy = ["multi-user.target"];
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
   # NONONONONONONO DO NOT CHANGE THIS
