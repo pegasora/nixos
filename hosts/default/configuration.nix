@@ -105,6 +105,8 @@
   programs.fish.enable = true;
   programs.niri.enable = true;
   programs.lazygit.enable = true;
+  programs.appimage.enable = true;
+  programs.appimage.binfmt = true;
 
   # group
   users.groups.pegasora = {};
@@ -189,16 +191,7 @@
     wayland.enable = true;
     enable = true;
   };
-  boot = {
-    extraModulePackages = [config.boot.kernelPackages.evdi];
-    initrd = {
-      # List of modules that are always loaded by the initrd.
-      kernelModules = [
-        "evdi"
-      ];
-    };
-  };
-  systemd.services.dlm.wantedBy = ["multi-user.target"];
+
   # NEVER CHANGE THIS
   system.stateVersion = "25.05"; # Did you read the comment?
   # NONONONONONONO DO NOT CHANGE THIS
