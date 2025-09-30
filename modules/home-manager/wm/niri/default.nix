@@ -18,6 +18,7 @@ in {
           enable = true;
           max-scroll-amount = "0%";
         };
+        warp-mouse-to-focus.enable = true;
       };
       outputs = {
         "DP-4" = {

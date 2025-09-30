@@ -1,5 +1,6 @@
 {
   imports = [
+    ./wlogout.nix
     ./fuzzel.nix
     ./hyprlock.nix
     ./hyprpaper.nix

@@ -14,7 +14,6 @@
     cmake
     go
     gcc
-    #gruvbox-plus-icons
     kanata
     networkmanager
     networkmanagerapplet
@@ -37,6 +36,8 @@
     qt6.qtwayland
     libsecret
     appimage-run
+    nmap
+    aravis
 
     # applications
     obsidian
