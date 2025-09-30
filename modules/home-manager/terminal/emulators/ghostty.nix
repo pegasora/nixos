@@ -32,6 +32,9 @@
     settings = {
       theme = "catppuccin-mocha";
       font-family = "Comic Code Ligatures";
+      window-decoration = false;
+      mouse-hide-while-typing = true;
+      confirm-close-surface = false;
       font-size = 16;
       cursor-style = "block";
       cursor-style-blink = true;
