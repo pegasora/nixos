@@ -1,7 +1,7 @@
 {
   imports = [
     ./cli
-    #./multiplexers
+    ./multiplexers
     ./shells
     ./emulators
   ];

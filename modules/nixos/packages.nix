@@ -83,6 +83,7 @@
     starship
     nixfmt-rfc-style
     nixd
+    yazi
 
     # neovim
     inputs.nvf-flake.packages.${pkgs.system}.default

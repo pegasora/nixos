@@ -21,6 +21,17 @@ in {
         warp-mouse-to-focus.enable = true;
       };
       outputs = {
+        "DP-10" = {
+          enable = true;
+          position.x = 0;
+          position.y = 0;
+        };
+        "DP-11" = {
+          enable = true;
+          position.x = 2560;
+          position.y = 0;
+          transform.rotation = 90;
+        };
         "DP-4" = {
           enable = true;
           position.x = 0;
