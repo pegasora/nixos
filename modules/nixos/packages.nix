@@ -53,6 +53,7 @@
     pavucontrol
     spotify
     discord
+    brave
     #vivaldi
 
     # wayland / hyprland

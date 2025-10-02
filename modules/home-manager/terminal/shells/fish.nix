@@ -45,7 +45,7 @@
       fastfetch
       starship init fish | source
       # enable_transience  # commented out as not available in this fish version
-      # zoxide init --cmd cd fish | source
+      zoxide init --cmd cd fish | source
       uv generate-shell-completion fish | source
       set -gx TERM xterm-256color
       fish_add_path ~/.spicetify

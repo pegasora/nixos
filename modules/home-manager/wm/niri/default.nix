@@ -56,39 +56,45 @@ in {
         };
       };
       layout = {
-        gaps = 5;
-        always-center-single-column = true;
+        gaps = 3;
+        #always-center-single-column = true;
         center-focused-column = "never";
         preset-column-widths = [
-          {proportion = 0.25;}
-          {proportion = 0.33333;}
-          {proportion = 0.5;}
-          {proportion = 0.66667;}
-          {proportion = 0.75;}
-          {proportion = 0.85;}
-          {proportion = 1.0;}
+          {proportion = 1. / 4.;} # 0.25
+          {proportion = 1. / 3.;} # 0.33333
+          {proportion = 1. / 2.;} # 0.5
+          {proportion = 2. / 3.;} # 0.66667
+          {proportion = 3. / 4.;} # 0.75
+          {proportion = 1.;} # 1.0
         ];
-        default-column-width = {proportion = 0.5;};
+        #default-column-width = {proportion = 0.5;};
         focus-ring = {
           width = 2;
           active.color = "#7fc8ff";
           inactive.color = "#505050";
         };
-        border = {
-          enable = true;
-          width = 4;
-          active.color = "#ffc87f";
-          inactive.color = "#505050";
-          urgent.color = "#9b0000";
-        };
+        #border = {
+        #  enable = true;
+        #  width = 4;
+        #  active.color = "#ffc87f";
+        #  inactive.color = "#505050";
+        #  urgent.color = "#9b0000";
+        #};
       };
       spawn-at-startup = [
         {argv = ["waybar"];}
         {argv = ["swaync"];}
         {argv = ["ydotoold"];}
+        {argv = ["swaybg" "--image" "/home/pegasora/nixos/wallpapers/curves.jpg"];}
         #{sh = ["sawybg -i \"$(find ~/.config/niri/wallpapers/ -type f | shuf -n 1)\" &"];}
       ];
 
+      window-rules = [
+        {
+          default-column-width.proportion = 1.;
+          matches = [{app-id = "ghostty";}];
+        }
+      ];
       binds = {
         # programs n such
         "super+Space".action.spawn = "fuzzel";
@@ -97,8 +103,8 @@ in {
         "super+e".action.spawn = "dolphin";
         "super+p".action.spawn = "wlogout";
         "super+o".action.spawn = "obsidian";
-        #"super+f".action.spawn = "vivaldi";
-        "super+f".action.spawn = "firefox";
+        #"super+f".action.spawn = "firefox";
+        "super+f".action.spawn = "brave";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
 

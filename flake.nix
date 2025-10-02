@@ -4,11 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     niri.url = "github:sodiboo/niri-flake";
-    hyprland.url = "github:hyprwm/Hyprland";
-    split-monitor-workspaces = {
-      url = "github:Duckonaut/split-monitor-workspaces";
-      inputs.hyprland.follows = "hyprland";
-    };
+    #hyprland.url = "github:hyprwm/Hyprland";
+    #split-monitor-workspaces = {
+    #  url = "github:Duckonaut/split-monitor-workspaces";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,13 +33,12 @@
     self,
     nixpkgs,
     home-manager,
-    split-monitor-workspaces,
     niri,
     ...
   } @ inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs split-monitor-workspaces;};
+        specialArgs = {inherit inputs;};
         modules = [
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.home-manager
