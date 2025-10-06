@@ -19,6 +19,13 @@
     exfat
     tailscale
     nmap
+    vim
+    htop
+    tmux
+    zfs
+    docker-compose
+    git
+    whois
 
     # git
     git

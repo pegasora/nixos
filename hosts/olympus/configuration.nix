@@ -6,7 +6,10 @@
   ...
 }: {
   imports = [
+    inputs.home-manager.nixosModules.default
     ../../disks/server.nix
+
+    ../../modules/nixos/olympus
   ];
 
   # Enable flakes and nix-command
@@ -18,6 +21,15 @@
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
+
+  #home-manager = {
+  #  extraSpecialArgs = {
+  #    inherit inputs;
+  #  };
+  #  users = {
+  #    zues = import ./home.nix;
+  #  };
+  #};
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -57,12 +69,16 @@
     LC_TIME = "en_US.UTF-8";
   };
 
+  # group
+  users.groups.zues = {};
+
   # User configuration
   users.users.zues = {
     isNormalUser = true;
     extraGroups = ["wheel" "docker"];
     shell = pkgs.bash;
     hashedPassword = "$6$h5ZKxkpdKx8jZdvu$2DcPXF3grqFHm82CzaIsFyx0kZD697HIxFUjosHZGLIns8Z4MrFxR9qHW6rZ0AwOBezNfFFiWL6.Q4UuC3DZ91";
+    group = "zues";
   };
 
   # Services
@@ -101,13 +117,6 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    vim
-    htop
-    tmux
-    zfs
-    docker-compose
-    git
-    whois
   ];
 
   # Allow unfree packages
