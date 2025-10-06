@@ -70,12 +70,10 @@
     };
     # Expose nixos-anywhere as a runnable app from the flake
     # This lets you run `nix run .#nixos-anywhere` without external dependencies
-    apps = rec {
-      default = nixos-anywhere;
-      nixos-anywhere = {
-        type = "app";
-        program = "${nixos-anywhere.packages.${nixpkgs.system}.default}/bin/nixos-anywhere";
-      };
+    # Expose nixos-anywhere as a runnable app
+    apps.x86_64-linux.nixos-anywhere = {
+      type = "app";
+      program = "${nixos-anywhere.packages.x86_64-linux.default}/bin/nixos-anywhere";
     };
   };
 }
