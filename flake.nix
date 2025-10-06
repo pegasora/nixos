@@ -50,6 +50,14 @@
           disko.nixosModules.disko
         ];
       };
+      olympus = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/olympus/configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
+        ];
+      };
     };
   };
 }
