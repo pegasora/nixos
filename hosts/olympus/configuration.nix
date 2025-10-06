@@ -6,7 +6,6 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     ../../disks/server.nix
   ];
 
@@ -33,6 +32,7 @@
 
   # Networking
   networking.hostName = "olympus";
+  networking.hostId = "166459cc";
   networking.networkmanager.enable = false;
   networking.useDHCP = true;
   #networking.interfaces.eth0.useDHCP = true; # Adjust interface name as needed
