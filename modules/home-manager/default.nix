@@ -1,7 +1,7 @@
 {
   imports = [
     ./terminal
-    #./wm
-    #./utils
+    ./wm
+    ./utils
   ];
 }

@@ -38,6 +38,9 @@
     appimage-run
     nmap
     aravis
+    gtk3
+    gtk4
+    pipewire
 
     # applications
     obsidian

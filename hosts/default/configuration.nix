@@ -61,6 +61,8 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1"; # Force Electron to use Wayland
     ELECTRON_OZONE_PLATFORM_HINT = "auto"; # Let Electron pick Wayland/X11
+    XDG_CURRENT_DESKTOP = "niri";
+    XDG_SESSION_DESKTOP = "niri"; # Optional, for extra compatibility
   };
 
   # bluetooth
@@ -95,8 +97,11 @@
   xdg = {
     portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk]; # For GNOME; use xdg-desktop-portal-kde for KDE
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-wlr]; # For GNOME; use xdg-desktop-portal-kde for KDE
       wlr.enable = true; # General Wayland support (safe even on GNOME)
+      config.common.default = [
+        "gtk"
+      ];
     };
     mime.enable = true; # Enable MIME and URL handler registration
   };
@@ -172,7 +177,6 @@
   home-manager = {
     extraSpecialArgs = {
       inherit inputs;
-      "split-monitor-workspaces" = inputs."split-monitor-workspaces";
     };
     users = {
       pegasora = import ./home.nix;

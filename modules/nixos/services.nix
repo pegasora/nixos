@@ -27,17 +27,19 @@
 
   # sound
   services.pulseaudio = {
-    enable = true;
+    enable = false;
     support32Bit = true;
   };
   services.pipewire = {
-    enable = false;
+    enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
   };
 
+  security.rtkit.enable = true;
   services.blueman.enable = true;
   services.kanata = {
     enable = true;
