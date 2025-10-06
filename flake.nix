@@ -45,10 +45,12 @@
     home-manager,
     niri,
     disko,
+    nixos-anywhere,
     ...
   } @ inputs: {
     nixosConfigurations = {
       nixos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/default/configuration.nix
@@ -57,6 +59,7 @@
         ];
       };
       olympus = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
           ./hosts/olympus/configuration.nix
