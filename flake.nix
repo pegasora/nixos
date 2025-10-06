@@ -27,6 +27,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -34,6 +38,7 @@
     nixpkgs,
     home-manager,
     niri,
+    disko,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -42,6 +47,7 @@
         modules = [
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.home-manager
+          disko.nixosModules.disko
         ];
       };
     };

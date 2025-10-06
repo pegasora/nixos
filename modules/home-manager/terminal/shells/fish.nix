@@ -9,7 +9,7 @@
     shellAliases = {
       vi = "nvim";
       vim = "nvim";
-      z = "zellij";
+      zz = "zellij";
       #t = "tmux";
       fishrc = "vim ~/.config/fish/config.fish";
       open = "xdg-open";

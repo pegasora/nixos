@@ -65,8 +65,7 @@ in {
           {proportion = 1. / 2.;} # 0.5
           {proportion = 2. / 3.;} # 0.66667
           {proportion = 3. / 4.;} # 0.75
-          {proportion = 8.5 / 10.;} # .85
-          {proportion = 1.;} # 1.0
+          {proportion = 9. / 10.;} # 1.0
         ];
         #default-column-width = {proportion = 0.5;};
         focus-ring = {
