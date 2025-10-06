@@ -97,10 +97,6 @@
         "valid users" = "admin";
       };
     };
-    extraConfig = ''
-      guest account = nobody
-      map to guest = bad user
-    '';
   };
 
   # System packages
