@@ -89,6 +89,7 @@
       PasswordAuthentication = true;
     };
   };
+  services.tailscale.enable = true;
 
   # Docker for containerized services
   virtualisation.docker.enable = true;
