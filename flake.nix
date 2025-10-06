@@ -31,6 +31,12 @@
       url = "github:nix-community/disko/latest";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # For Raspberry Pi hardware support (optional but recommended for Pis)
+    #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
   outputs = {
@@ -57,6 +63,15 @@
           inputs.home-manager.nixosModules.home-manager
           disko.nixosModules.disko
         ];
+      };
+    };
+    # Expose nixos-anywhere as a runnable app from the flake
+    # This lets you run `nix run .#nixos-anywhere` without external dependencies
+    apps = rec {
+      default = nixos-anywhere;
+      nixos-anywhere = {
+        type = "app";
+        program = "${nixos-anywhere.packages.${nixpkgs.system}.default}/bin/nixos-anywhere";
       };
     };
   };
