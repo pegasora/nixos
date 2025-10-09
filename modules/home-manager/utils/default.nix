@@ -8,5 +8,6 @@
     ./swaync.nix
     ./outlook-for-linux.nix
     ./twosapp.nix
+    ./drawio.nix
   ];
 }
