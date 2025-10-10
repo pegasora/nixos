@@ -29,6 +29,7 @@
     protonvpn-cli
     age
     sops
+    just
 
     # git
     git
