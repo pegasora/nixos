@@ -8,38 +8,36 @@
   imports = [
     inputs.home-manager.nixosModules.default
     ../../disks/server.nix
-
     ../../modules/nixos/olympus
+    inputs.vpn-confinement.nixosModules.default # Add VPN-Confinement module
+    inputs.sops-nix.nixosModules.sops # Add sops-nix module
   ];
 
   # Enable flakes and nix-command
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Sops setup
   sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = "/etc/sops/age/keys.txt";
-    secrets."proton_wg" = {}; # Auto-decrypts to path above
+    defaultSopsFile = "/home/zues/nixos/secrets/secrets.yaml";
+    validateSopsFiles = false; # Disable store validation
+    age = {
+      keyFile = "/etc/sops/age/keys.txt";
+      generateKey = true;
+    };
+    secrets = {
+      proton_wg = {};
+      age_key = {
+        mode = "0600";
+        owner = "root";
+        group = "root";
+      };
+    };
   };
-
-  # Symlink age key (securely—only root can read)
-  environment.etc."sops/age/keys.txt".source = config.sops.secrets.age_key.path; # Wait, no—generate key in NixOS too
-
   # Automatic garbage collection
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 14d";
   };
-
-  #home-manager = {
-  #  extraSpecialArgs = {
-  #    inherit inputs;
-  #  };
-  #  users = {
-  #    zues = import ./home.nix;
-  #  };
-  #};
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;
@@ -57,10 +55,67 @@
   networking.hostId = "166459cc";
   networking.networkmanager.enable = false;
   networking.useDHCP = true;
-  #networking.interfaces.eth0.useDHCP = true; # Adjust interface name as needed
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [22 445 139]; # SSH, Samba
+  networking.firewall.allowedTCPPorts = [22 445 139 8080]; # Add qBittorrent web UI
   networking.firewall.allowedUDPPorts = [137 138]; # Samba
+
+  # VPN namespace
+  #vpnNamespaces.proton = {
+  #  enable = true;
+  #  wireguardConfigFile = config.sops.secrets.proton_wg.path;
+  #  accessibleFrom = ["10.10.1.0/24" "127.0.0.1"];
+  #  portMappings = [
+  #    {
+  #      from = 8080;
+  #      to = 8080;
+  #    } # Web UI access
+  #  ];
+  #};
+
+  # qBittorrent
+  #services.qbittorrent = {
+  #  enable = true;
+  #  user = "qbittorrent"; # Dedicated system user
+  #  group = "qbittorrent";
+  #  dataDir = "/tank/qbittorrent"; # Store downloads on ZFS pool
+  #  systemd.services.qbittorrent-nox.vpnConfinement = {
+  #    enable = true;
+  #    vpnNamespace = "proton";
+  #  };
+  #  settings = {
+  #    WebUI.Address = "0.0.0.0";
+  #    WebUI.Port = 8080;
+  #    WebUI.Username = "zues"; # Match your user
+  #    WebUI.Password = "changeme"; # CHANGE THIS!
+  #    Connection.ListenPort = 54321; # Your ProtonVPN forwarded port
+  #    General.ShowSplashScreen = false;
+  #    Speed.DefaultGlobalDownloadLimit = 0;
+  #    Downloads.SavePath = "/tank/qbittorrent/downloads"; # Accessible path
+  #  };
+  #};
+
+  users.groups.zues = {};
+  # Users
+  users.users.zues = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "docker" "qbittorrent"]; # Add zues to qbittorrent group
+    shell = pkgs.bash;
+    hashedPassword = "$6$h5ZKxkpdKx8jZdvu$2DcPXF3grqFHm82CzaIsFyx0kZD697HIxFUjosHZGLIns8Z4MrFxR9qHW6rZ0AwOBezNfFFiWL6.Q4UuC3DZ91";
+    group = "zues";
+  };
+
+  #users.users.qbittorrent = {
+  #  isSystemUser = true;
+  #  group = "qbittorrent";
+  #  home = "/tank/qbittorrent"; # Store config/data here
+  #};
+  #users.groups.qbittorrent = {};
+
+  # Ensure zues can access qBittorrent downloads
+  #systemd.tmpfiles.rules = [
+  #  "d /tank/qbittorrent 0770 qbittorrent qbittorrent - -" # qBittorrent owns dir
+  #  "d /tank/qbittorrent/downloads 0770 qbittorrent qbittorrent - -" # Downloads subdir
+  #];
 
   # Time zone
   time.timeZone = "America/Los_Angeles";
@@ -79,18 +134,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # group
-  users.groups.zues = {};
-
-  # User configuration
-  users.users.zues = {
-    isNormalUser = true;
-    extraGroups = ["wheel" "docker"];
-    shell = pkgs.bash;
-    hashedPassword = "$6$h5ZKxkpdKx8jZdvu$2DcPXF3grqFHm82CzaIsFyx0kZD697HIxFUjosHZGLIns8Z4MrFxR9qHW6rZ0AwOBezNfFFiWL6.Q4UuC3DZ91";
-    group = "zues";
-  };
-
   # Services
   services.openssh = {
     enable = true;
@@ -101,14 +144,15 @@
   };
   services.tailscale.enable = true;
 
-  # Docker for containerized services
+  # Docker
   virtualisation.docker.enable = true;
 
-  # Samba for file sharing
+  # Samba
   services.samba = {
     enable = true;
     openFirewall = true;
-    shares = {
+    settings = {
+      # Fix shares -> settings
       tank = {
         path = "/tank";
         writable = "yes";
@@ -128,6 +172,8 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
+    protonvpn-cli # For port forwarding
+    wireguard-tools # For VPN debugging
   ];
 
   # Allow unfree packages

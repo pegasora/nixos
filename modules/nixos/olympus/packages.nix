@@ -26,7 +26,6 @@
     docker-compose
     git
     whois
-    protonvpn-cli
     age
     sops
     just
