@@ -35,6 +35,16 @@
       url = "github:nix-community/nixos-anywhere";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    vpn-confinement = {
+      url = "github:Maroka-chan/VPN-Confinement";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # For Raspberry Pi hardware support (optional but recommended for Pis)
     #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -46,6 +56,8 @@
     niri,
     disko,
     nixos-anywhere,
+    vpn-confinement,
+    sops-nix,
     ...
   } @ inputs: {
     nixosConfigurations = {
@@ -56,6 +68,8 @@
           ./hosts/default/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           disko.nixosModules.disko
+          vpn-confinement.nixosModules.default
+          sops-nix.nixosModules.sops
         ];
       };
       olympus = nixpkgs.lib.nixosSystem {
@@ -65,6 +79,8 @@
           ./hosts/olympus/configuration.nix
           inputs.home-manager.nixosModules.home-manager
           disko.nixosModules.disko
+          vpn-confinement.nixosModules.default
+          sops-nix.nixosModules.sops
         ];
       };
     };
