@@ -41,6 +41,8 @@
     gtk3
     gtk4
     pipewire
+    age
+    sops
 
     # applications
     obsidian
@@ -89,6 +91,7 @@
     nixd
     yazi
     just
+    freecad
 
     # neovim
     inputs.nvf-flake.packages.${pkgs.system}.default
