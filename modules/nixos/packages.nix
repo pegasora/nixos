@@ -88,6 +88,7 @@
     nixfmt-rfc-style
     nixd
     yazi
+    just
 
     # neovim
     inputs.nvf-flake.packages.${pkgs.system}.default
