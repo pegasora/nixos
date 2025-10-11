@@ -10,7 +10,6 @@
     ../../disks/server.nix
     ../../modules/nixos/olympus
     inputs.vpn-confinement.nixosModules.default # Add VPN-Confinement module
-    inputs.sops-nix.nixosModules.sops # Add sops-nix module
   ];
 
   # Enable flakes and nix-command
@@ -44,41 +43,42 @@
   networking.firewall.allowedUDPPorts = [137 138]; # Samba
 
   # VPN namespace
-  #vpnNamespaces.proton = {
-  #  enable = true;
-  #  wireguardConfigFile = config.sops.secrets.proton_wg.path;
-  #  accessibleFrom = ["10.10.1.0/24" "127.0.0.1"];
-  #  portMappings = [
-  #    {
-  #      from = 8080;
-  #      to = 8080;
-  #    } # Web UI access
-  #  ];
-  #};
+  vpnNamespaces.airvpn = {
+    enable = true;
+    wireguardConfigFile = "/home/zues/nixos/private/airvpn_wg.conf"; # Your manual config
+    accessibleFrom = ["10.10.1.0/24" "127.0.0.1"]; # Your LAN subnet
+    portMappings = [
+      {
+        from = 8080;
+        to = 8080;
+      }
+    ];
+  };
 
   # qBittorrent
-  #services.qbittorrent = {
-  #  enable = true;
-  #  user = "qbittorrent"; # Dedicated system user
-  #  group = "qbittorrent";
-  #  dataDir = "/tank/qbittorrent"; # Store downloads on ZFS pool
-  #  systemd.services.qbittorrent-nox.vpnConfinement = {
-  #    enable = true;
-  #    vpnNamespace = "proton";
-  #  };
-  #  settings = {
-  #    WebUI.Address = "0.0.0.0";
-  #    WebUI.Port = 8080;
-  #    WebUI.Username = "zues"; # Match your user
-  #    WebUI.Password = "changeme"; # CHANGE THIS!
-  #    Connection.ListenPort = 54321; # Your ProtonVPN forwarded port
-  #    General.ShowSplashScreen = false;
-  #    Speed.DefaultGlobalDownloadLimit = 0;
-  #    Downloads.SavePath = "/tank/qbittorrent/downloads"; # Accessible path
-  #  };
-  #};
+  services.qbittorrent = {
+    enable = true;
+    user = "qbittorrent";
+    group = "qbittorrent";
+    openFirewall = true; # Opens port 8080
+    systemd.services.qbittorrent-nox.vpnConfinement = {
+      enable = true;
+      vpnNamespace = "airvpn";
+    };
+    settings = {
+      WebUI.Address = "0.0.0.0";
+      WebUI.Port = 8080;
+      WebUI.Username = "zues";
+      WebUI.Password = "chageme"; # CHANGE THIS!
+      Connection.ListenPort = 47935; # Your AirVPN forwarded port
+      General.ShowSplashScreen = false;
+      Speed.DefaultGlobalDownloadLimit = 0;
+      Downloads.SavePath = "/tank/qbittorrent/downloads";
+    };
+  };
 
   users.groups.zues = {};
+  users.groups.qbittorrent = {};
   # Users
   users.users.zues = {
     isNormalUser = true;
@@ -88,18 +88,17 @@
     group = "zues";
   };
 
-  #users.users.qbittorrent = {
-  #  isSystemUser = true;
-  #  group = "qbittorrent";
-  #  home = "/tank/qbittorrent"; # Store config/data here
-  #};
-  #users.groups.qbittorrent = {};
+  users.users.qbittorrent = {
+    isSystemUser = true;
+    group = "qbittorrent";
+    home = "/tank/qbittorrent"; # Store config/data here
+  };
 
   # Ensure zues can access qBittorrent downloads
-  #systemd.tmpfiles.rules = [
-  #  "d /tank/qbittorrent 0770 qbittorrent qbittorrent - -" # qBittorrent owns dir
-  #  "d /tank/qbittorrent/downloads 0770 qbittorrent qbittorrent - -" # Downloads subdir
-  #];
+  systemd.tmpfiles.rules = [
+    "d /tank/qbittorrent 0770 qbittorrent qbittorrent - -" # qBittorrent owns dir
+    "d /tank/qbittorrent/downloads 0770 qbittorrent qbittorrent - -" # Downloads subdir
+  ];
 
   # Time zone
   time.timeZone = "America/Los_Angeles";
@@ -156,7 +155,6 @@
 
   # System packages
   environment.systemPackages = with pkgs; [
-    protonvpn-cli # For port forwarding
     wireguard-tools # For VPN debugging
   ];
 
