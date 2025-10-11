@@ -16,31 +16,25 @@
   # Enable flakes and nix-command
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  sops = {
-    defaultSopsFile = "/home/zues/nixos/secrets/secrets.yaml.sops";
-    defaultSopsFormat = "yaml";
-    validateSopsFiles = false;
-    age = {
-      keyFile = "/etc/sops/age/keys.txt";
-      generateKey = true;
-    };
-    secrets = {
-      proton_wg = {
-        format = "yaml";
-        mode = "0600";
-        owner = "root";
-        group = "root";
-        path = "/run/secrets/proton_wg.conf";
-      };
-    };
-  };
-  # Symlink age key
-  environment.etc."sops/age/keys.txt" = {
-    source = config.sops.secrets.age_key.path;
-    mode = "0600";
-    user = "root";
-    group = "root";
-  };
+  # Sops setup
+  #sops = {
+  #  defaultSopsFile = "/home/zues/nixos/secrets/secrets.yaml.sops";
+  #  defaultSopsFormat = "yaml";
+  #  validateSopsFiles = false;
+  #  age = {
+  #    keyFile = "/etc/sops/age/keys.txt";
+  #    generateKey = false;
+  #  };
+  #  secrets = {
+  #    proton_wg = {
+  #      format = "binary"; # Write as raw file
+  #      mode = "0600";
+  #      owner = "root";
+  #      group = "root";
+  #      path = "/run/secrets/proton_wg.conf";
+  #    };
+  #  };
+  #};
 
   # Automatic garbage collection
   nix.gc = {
