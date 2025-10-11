@@ -18,19 +18,6 @@
 
   nixpkgs.overlays = [inputs.niri.overlays.niri];
 
-  # Sops setup
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = "/etc/sops/age/keys.txt";
-    secrets."proton_wg" = {}; # Auto-decrypts to path above
-  };
-
-  # Symlink age key (securely—only root can read)
-  environment.etc."sops/age/keys.txt".source = config.sops.secrets.age_key.path; # Wait, no—generate key in NixOS too
-
-  # Actually, for the private key: Create a NixOS secret for it too, but for simplicity:
-  # Generate another keypair on the server later, or use SSH keys (see sops docs). For now, assume you copy keys.txt securely post-build.
-
   nix.gc = {
     automatic = true;
     dates = "weekly";

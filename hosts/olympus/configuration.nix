@@ -16,16 +16,6 @@
   # Enable flakes and nix-command
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Sops setup
-  sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
-    age.keyFile = "/etc/sops/age/keys.txt";
-    secrets."proton_wg" = {}; # Auto-decrypts to path above
-  };
-
-  # Symlink age key (securely—only root can read)
-  environment.etc."sops/age/keys.txt".source = config.sops.secrets.age_key.path; # Wait, no—generate key in NixOS too
-
   # Automatic garbage collection
   nix.gc = {
     automatic = true;
