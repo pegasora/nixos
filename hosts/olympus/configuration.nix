@@ -9,7 +9,7 @@
     inputs.home-manager.nixosModules.default
     ../../disks/server.nix
     ../../modules/nixos/olympus
-    inputs.vpn-confinement.nixosModules.default # Add VPN-Confinement module
+    ../../modules/homelab
   ];
 
   # Enable flakes and nix-command
@@ -42,63 +42,15 @@
   networking.firewall.allowedTCPPorts = [22 445 139 8080]; # Add qBittorrent web UI
   networking.firewall.allowedUDPPorts = [137 138]; # Samba
 
-  # VPN namespace
-  vpnNamespaces.airvpn = {
-    enable = true;
-    wireguardConfigFile = "/home/zues/nixos/private/airvpn_wg.conf"; # Your manual config
-    accessibleFrom = ["10.10.1.0/24" "127.0.0.1"]; # Your LAN subnet
-    portMappings = [
-      {
-        from = 8080;
-        to = 8080;
-      }
-    ];
-  };
-
-  # qBittorrent
-  services.qbittorrent = {
-    enable = true;
-    user = "qbittorrent";
-    group = "qbittorrent";
-    openFirewall = true; # Opens port 8080
-    systemd.services.qbittorrent-nox.vpnConfinement = {
-      enable = true;
-      vpnNamespace = "airvpn";
-    };
-    settings = {
-      WebUI.Address = "0.0.0.0";
-      WebUI.Port = 8080;
-      WebUI.Username = "zues";
-      WebUI.Password = "chageme"; # CHANGE THIS!
-      Connection.ListenPort = 47935; # Your AirVPN forwarded port
-      General.ShowSplashScreen = false;
-      Speed.DefaultGlobalDownloadLimit = 0;
-      Downloads.SavePath = "/tank/qbittorrent/downloads";
-    };
-  };
-
   users.groups.zues = {};
-  users.groups.qbittorrent = {};
   # Users
   users.users.zues = {
     isNormalUser = true;
-    extraGroups = ["wheel" "docker" "qbittorrent"]; # Add zues to qbittorrent group
+    extraGroups = ["wheel" "docker" "qbittorrent" "media"]; # Add zues to qbittorrent group
     shell = pkgs.bash;
     hashedPassword = "$6$h5ZKxkpdKx8jZdvu$2DcPXF3grqFHm82CzaIsFyx0kZD697HIxFUjosHZGLIns8Z4MrFxR9qHW6rZ0AwOBezNfFFiWL6.Q4UuC3DZ91";
     group = "zues";
   };
-
-  users.users.qbittorrent = {
-    isSystemUser = true;
-    group = "qbittorrent";
-    home = "/tank/qbittorrent"; # Store config/data here
-  };
-
-  # Ensure zues can access qBittorrent downloads
-  systemd.tmpfiles.rules = [
-    "d /tank/qbittorrent 0770 qbittorrent qbittorrent - -" # qBittorrent owns dir
-    "d /tank/qbittorrent/downloads 0770 qbittorrent qbittorrent - -" # Downloads subdir
-  ];
 
   # Time zone
   time.timeZone = "America/Los_Angeles";
