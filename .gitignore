@@ -14,4 +14,4 @@ Secrets/*
 
 private/
 *.env
-servarr/*
+docker/servarr/*
