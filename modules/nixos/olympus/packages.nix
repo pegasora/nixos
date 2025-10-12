@@ -29,6 +29,10 @@
     age
     sops
     just
+    jellyfin
+    jellyfin-web
+    jellyfin-ffmpeg
+    btop
 
     # git
     git
@@ -48,6 +52,7 @@
     nixfmt-rfc-style
     nixd
     yazi
+    lazydocker
 
     # neovim
     inputs.nvf-flake.packages.${pkgs.system}.default
