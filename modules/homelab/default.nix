@@ -1,3 +1,5 @@
 {
-  imports = [./arr];
+  imports = [
+    ./jellyfin
+  ];
 }
