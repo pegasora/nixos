@@ -86,7 +86,7 @@
     zoxide
     zellij
     uv
-    opencode
+    #opencode
     starship
     nixfmt-rfc-style
     nixd
