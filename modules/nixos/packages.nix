@@ -60,6 +60,7 @@
     discord
     brave
     #vivaldi
+    bolt-launcher
 
     # wayland / hyprland
     cliphist
