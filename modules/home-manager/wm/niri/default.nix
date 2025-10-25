@@ -105,6 +105,7 @@ in {
         "super+o".action.spawn = "obsidian";
         #"super+f".action.spawn = "firefox";
         "super+f".action.spawn = "brave";
+        "super+z".action.spawn = "todoist-electron";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
 
@@ -167,8 +168,8 @@ in {
 
         "super+shift+w".action = a.toggle-window-floating;
 
-        "super+s".action = a.screenshot-window;
-        "super+shift+s".action = a.screenshot;
+        #"super+s".action = a.screenshot-window;
+        #"super+shift+s".action = a.screenshot;
       };
     };
   };

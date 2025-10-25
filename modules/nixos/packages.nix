@@ -4,7 +4,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   environment.systemPackages = with pkgs; [
     # system
     curl
@@ -43,6 +44,8 @@
     pipewire
     age
     sops
+    nushell
+    jujutsu
 
     # applications
     obsidian
@@ -61,6 +64,8 @@
     brave
     #vivaldi
     bolt-launcher
+    todoist-electron
+    openscad
 
     # wayland / hyprland
     cliphist
@@ -87,7 +92,7 @@
     zellij
     uv
     #opencode
-    starship
+    #starship
     nixfmt-rfc-style
     nixd
     yazi
@@ -95,13 +100,13 @@
     freecad
 
     # neovim
-    inputs.nvf-flake.packages.${pkgs.system}.default
-    neovim
+    inputs.nixvim-flake.packages.${pkgs.system}.default
+    #neovim
     ripgrep
     gnumake
     ruff
     lua-language-server
-    (pkgs.catppuccin-sddm.override {flavor = "mocha";})
+    (pkgs.catppuccin-sddm.override { flavor = "mocha"; })
   ];
 
   environment.localBinInPath = true;

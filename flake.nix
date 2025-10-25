@@ -22,8 +22,8 @@
       url = "github:pegasora/Comic-Code";
       flake = false;
     };
-    nvf-flake = {
-      url = "github:pegasora/nvf-flake";
+    nixvim-flake = {
+      url = "github:pegasora/nixvim-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify-nix = {
@@ -42,41 +42,43 @@
     #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    niri,
-    disko,
-    nixos-anywhere,
-    ...
-  } @ inputs: {
-    nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/default/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          disko.nixosModules.disko
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      niri,
+      disko,
+      nixos-anywhere,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations = {
+        nixos = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/default/configuration.nix
+            inputs.home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+          ];
+        };
+        olympus = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/olympus/configuration.nix
+            inputs.home-manager.nixosModules.home-manager
+            disko.nixosModules.disko
+          ];
+        };
       };
-      olympus = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/olympus/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          disko.nixosModules.disko
-        ];
+      # Expose nixos-anywhere as a runnable app from the flake
+      # This lets you run `nix run .#nixos-anywhere` without external dependencies
+      # Expose nixos-anywhere as a runnable app
+      apps.x86_64-linux.nixos-anywhere = {
+        type = "app";
+        program = "${nixos-anywhere.packages.x86_64-linux.default}/bin/nixos-anywhere";
       };
     };
-    # Expose nixos-anywhere as a runnable app from the flake
-    # This lets you run `nix run .#nixos-anywhere` without external dependencies
-    # Expose nixos-anywhere as a runnable app
-    apps.x86_64-linux.nixos-anywhere = {
-      type = "app";
-      program = "${nixos-anywhere.packages.x86_64-linux.default}/bin/nixos-anywhere";
-    };
-  };
 }

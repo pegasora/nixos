@@ -2,13 +2,14 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    #enableNushellIntegration = true;
     keymap.mgr.prepend_keymap = [
       {
-        on = ["Q"];
+        on = [ "Q" ];
         run = "quit";
       }
       {
-        on = ["q"];
+        on = [ "q" ];
         run = "quit --no-cwd-file";
       }
     ];
@@ -155,8 +156,8 @@
         border = {
           fg = "#89b4fa";
         };
-        title = {};
-        value = {};
+        title = { };
+        value = { };
         selected = {
           reversed = true;
         };
@@ -169,7 +170,7 @@
         active = {
           fg = "#f5c2e7";
         };
-        inactive = {};
+        inactive = { };
       };
 
       confirm = {
@@ -179,12 +180,12 @@
         title = {
           fg = "#89b4fa";
         };
-        content = {};
-        list = {};
+        content = { };
+        list = { };
         btn_yes = {
           reversed = true;
         };
-        btn_no = {};
+        btn_no = { };
       };
 
       cmp = {
@@ -197,7 +198,7 @@
         border = {
           fg = "#89b4fa";
         };
-        title = {};
+        title = { };
         hovered = {
           underline = true;
         };

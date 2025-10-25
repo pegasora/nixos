@@ -2,16 +2,17 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   programs.fish = {
     enable = true;
-    plugins = [];
+    plugins = [ ];
     shellAliases = {
       vi = "nvim";
       vim = "nvim";
-      zz = "zellij";
+      z = "zellij";
       #t = "tmux";
-      fishrc = "vim ~/.config/fish/config.fish";
+      #fishrc = "vim ~/.config/fish/config.fish";
       open = "xdg-open";
       pull_all = "ls ; ls | xargs -I{} git -C {} pull";
       status_all = "ls ; ls | xargs -I{} git -C {} status";
@@ -44,7 +45,7 @@
     };
     interactiveShellInit = ''
       fastfetch
-      starship init fish | source
+      # starship init fish | source
       # enable_transience  # commented out as not available in this fish version
       zoxide init --cmd cd fish | source
       uv generate-shell-completion fish | source

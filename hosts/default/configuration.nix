@@ -5,7 +5,8 @@
   inputs,
   nixpkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
@@ -15,9 +16,12 @@
     ../../modules/nixos/services.nix
   ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
-  nixpkgs.overlays = [inputs.niri.overlays.niri];
+  nixpkgs.overlays = [ inputs.niri.overlays.niri ];
 
   nix.gc = {
     automatic = true;
@@ -35,28 +39,30 @@
   networking.networkmanager.enable = true;
   programs.nm-applet.enable = true;
   programs.xwayland.enable = true;
-  programs.spicetify = let
-    spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  in {
-    enable = true;
+  programs.spicetify =
+    let
+      spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in
+    {
+      enable = true;
 
-    enabledExtensions = with spicePkgs.extensions; [
-      adblock
-      hidePodcasts
-      shuffle # shuffle+ (special characters are sanitized out of extension names)
-    ];
-    enabledCustomApps = with spicePkgs.apps; [
-      newReleases
-      ncsVisualizer
-    ];
-    enabledSnippets = with spicePkgs.snippets; [
-      rotatingCoverart
-      pointer
-    ];
+      enabledExtensions = with spicePkgs.extensions; [
+        adblock
+        hidePodcasts
+        shuffle # shuffle+ (special characters are sanitized out of extension names)
+      ];
+      enabledCustomApps = with spicePkgs.apps; [
+        newReleases
+        ncsVisualizer
+      ];
+      enabledSnippets = with spicePkgs.snippets; [
+        rotatingCoverart
+        pointer
+      ];
 
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
-  };
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
+    };
 
   # Ensure Wayland support for Electron
   environment.sessionVariables = {
@@ -98,7 +104,10 @@
   xdg = {
     portal = {
       enable = true;
-      extraPortals = with pkgs; [xdg-desktop-portal-gtk xdg-desktop-portal-wlr]; # For GNOME; use xdg-desktop-portal-kde for KDE
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-wlr
+      ]; # For GNOME; use xdg-desktop-portal-kde for KDE
       wlr.enable = true; # General Wayland support (safe even on GNOME)
       config.common.default = [
         "gtk"
@@ -109,13 +118,14 @@
 
   # programs
   programs.fish.enable = true;
+  #programs.nushell.enable = true;
   programs.niri.enable = true;
   programs.lazygit.enable = true;
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
   # group
-  users.groups.pegasora = {};
+  users.groups.pegasora = { };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pegasora = {
@@ -130,7 +140,7 @@
       "video"
       "plugdev"
     ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
     shell = pkgs.fish;
     #shell = pkgs.nushell;
     group = "pegasora";
@@ -188,9 +198,9 @@
   nixpkgs.config.allowUnfree = true;
 
   security.polkit.enable = true;
-  environment.systemPackages = with pkgs; [polkit_gnome];
+  environment.systemPackages = with pkgs; [ polkit_gnome ];
   environment.variables.EDITOR = "nvim";
-  services.dbus.packages = with pkgs; [polkit_gnome];
+  services.dbus.packages = with pkgs; [ polkit_gnome ];
 
   services.displayManager.sddm = {
     wayland.enable = true;
