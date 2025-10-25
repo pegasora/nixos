@@ -45,7 +45,7 @@
     age
     sops
     nushell
-    jujutsu
+    #jujutsu moved to hm
 
     # applications
     obsidian
