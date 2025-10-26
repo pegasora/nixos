@@ -22,8 +22,8 @@
       url = "github:pegasora/Comic-Code";
       flake = false;
     };
-    nixvim-flake = {
-      url = "github:pegasora/nixvim-flake";
+    nvf-flake = {
+      url = "github:pegasora/nvf-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     spicetify-nix = {

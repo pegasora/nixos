@@ -100,7 +100,7 @@
     freecad
 
     # neovim
-    inputs.nixvim-flake.packages.${pkgs.system}.default
+    inputs.nvf-flake.packages.${pkgs.system}.default
     #neovim
     ripgrep
     gnumake
