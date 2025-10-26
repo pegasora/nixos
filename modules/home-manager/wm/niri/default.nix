@@ -1,6 +1,8 @@
-{config, ...}: let
+{ config, ... }:
+let
   a = config.lib.niri.actions;
-in {
+in
+{
   programs.niri = {
     enable = true;
     settings = {
@@ -60,14 +62,16 @@ in {
         #always-center-single-column = true;
         center-focused-column = "never";
         preset-column-widths = [
-          {proportion = 1. / 4.;} # 0.25
-          {proportion = 1. / 3.;} # 0.33333
-          {proportion = 1. / 2.;} # 0.5
-          {proportion = 2. / 3.;} # 0.66667
-          {proportion = 3. / 4.;} # 0.75
-          {proportion = 9. / 10.;} # 1.0
+          { proportion = 1. / 4.; } # 0.25
+          { proportion = 1. / 3.; } # 0.33333
+          { proportion = 1. / 2.; } # 0.5
+          { proportion = 2. / 3.; } # 0.66667
+          { proportion = 3. / 4.; } # 0.75
+          { proportion = 9. / 10.; } # 1.0
         ];
-        #default-column-width = {proportion = 0.5;};
+        default-column-width = {
+          proportion = 1. / 3.;
+        };
         focus-ring = {
           width = 2;
           active.color = "#7fc8ff";
@@ -82,17 +86,23 @@ in {
         #};
       };
       spawn-at-startup = [
-        {argv = ["waybar"];}
-        {argv = ["swaync"];}
-        {argv = ["ydotoold"];}
-        {argv = ["swaybg" "--image" "/home/pegasora/nixos/wallpapers/curves.jpg"];}
+        { argv = [ "waybar" ]; }
+        { argv = [ "swaync" ]; }
+        { argv = [ "ydotoold" ]; }
+        {
+          argv = [
+            "swaybg"
+            "--image"
+            "/home/pegasora/nixos/wallpapers/curves.jpg"
+          ];
+        }
         #{sh = ["sawybg -i \"$(find ~/.config/niri/wallpapers/ -type f | shuf -n 1)\" &"];}
       ];
 
       window-rules = [
         {
-          default-column-width.proportion = 1.;
-          matches = [{app-id = "ghostty";}];
+          default-column-width.proportion = 1. / 3.;
+          matches = [ { app-id = "ghostty"; } ];
         }
       ];
       binds = {
@@ -123,12 +133,40 @@ in {
         "super+ctrl+l".action = a.move-column-right;
 
         # special buttons
-        "XF86AudioRaiseVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"];
-        "XF86AudioLowerVolume".action.spawn = ["wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"];
-        "XF86AudioMute".action.spawn = ["wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"];
-        "XF86AudioMicMute".action.spawn = ["wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"];
-        "XF86MonBrightnessUp".action.spawn = ["brightnessctl" "s" "10%+"];
-        "XF86MonBrightnessDown".action.spawn = ["brightnessctl" "s" "10%-"];
+        "XF86AudioRaiseVolume".action.spawn = [
+          "wpctl"
+          "set-volume"
+          "@DEFAULT_AUDIO_SINK@"
+          "0.05+"
+        ];
+        "XF86AudioLowerVolume".action.spawn = [
+          "wpctl"
+          "set-volume"
+          "@DEFAULT_AUDIO_SINK@"
+          "0.05-"
+        ];
+        "XF86AudioMute".action.spawn = [
+          "wpctl"
+          "set-mute"
+          "@DEFAULT_AUDIO_SINK@"
+          "toggle"
+        ];
+        "XF86AudioMicMute".action.spawn = [
+          "wpctl"
+          "set-mute"
+          "@DEFAULT_AUDIO_SOURCE@"
+          "toggle"
+        ];
+        "XF86MonBrightnessUp".action.spawn = [
+          "brightnessctl"
+          "s"
+          "10%+"
+        ];
+        "XF86MonBrightnessDown".action.spawn = [
+          "brightnessctl"
+          "s"
+          "10%-"
+        ];
 
         "super+shift+h".action = a.focus-monitor-left;
         "super+shift+j".action = a.focus-monitor-down;
