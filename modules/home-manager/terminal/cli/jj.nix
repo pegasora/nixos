@@ -3,8 +3,8 @@
     enable = true;
     settings = {
       user = {
-        name = "dawsonb";
-        email = "pegasora@proton.me";
+        name = "pegasora";
+        email = "dawsonhburgess@gmail.com";
       };
       ui = {
         default-command = "log";
