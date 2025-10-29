@@ -1,8 +1,6 @@
-{ config, ... }:
-let
+{config, ...}: let
   a = config.lib.niri.actions;
-in
-{
+in {
   programs.niri = {
     enable = true;
     settings = {
@@ -62,15 +60,15 @@ in
         #always-center-single-column = true;
         center-focused-column = "never";
         preset-column-widths = [
-          { proportion = 1. / 4.; } # 0.25
-          { proportion = 1. / 3.; } # 0.33333
-          { proportion = 1. / 2.; } # 0.5
-          { proportion = 2. / 3.; } # 0.66667
-          { proportion = 3. / 4.; } # 0.75
-          { proportion = 9. / 10.; } # 1.0
+          {proportion = 1. / 4.;} # 0.25
+          {proportion = 1. / 3.;} # 0.33333
+          {proportion = 1. / 2.;} # 0.5
+          {proportion = 2. / 3.;} # 0.66667
+          {proportion = 3. / 4.;} # 0.75
+          {proportion = 9. / 10.;} # 1.0
         ];
         default-column-width = {
-          proportion = 1. / 3.;
+          proportion = 1. / 2.;
         };
         focus-ring = {
           width = 2;
@@ -86,9 +84,9 @@ in
         #};
       };
       spawn-at-startup = [
-        { argv = [ "waybar" ]; }
-        { argv = [ "swaync" ]; }
-        { argv = [ "ydotoold" ]; }
+        {argv = ["waybar"];}
+        {argv = ["swaync"];}
+        {argv = ["ydotoold"];}
         {
           argv = [
             "swaybg"
@@ -101,8 +99,8 @@ in
 
       window-rules = [
         {
-          default-column-width.proportion = 1. / 3.;
-          matches = [ { app-id = "ghostty"; } ];
+          default-column-width.proportion = 1. / 2.;
+          matches = [{app-id = "ghostty";}];
         }
       ];
       binds = {
@@ -201,8 +199,8 @@ in
 
         "super+ctrl+f".action = a.expand-column-to-available-width;
 
-        "super+minus".action = a.set-column-width "-10%";
-        "super+equal".action = a.set-column-width "+10%";
+        "super+minus".action = a.set-column-width "-5%";
+        "super+equal".action = a.set-column-width "+5%";
 
         "super+shift+w".action = a.toggle-window-floating;
 

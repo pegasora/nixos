@@ -4,110 +4,139 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   environment.systemPackages = with pkgs; [
-    # system
-    curl
-    wget
-    blueman # services.blueman.enable = true; in home-manager
-    brightnessctl
+    ## ## ## ## ##
+    ##  system  ##
+    ## ## ## ## ##
+    # utils
+    kanata
+    appimage-run
+    unzip
+    stow
+
+    # software/coding/packaging
+    nmap
+    aravis
     cmake
     go
     gcc
-    kanata
+    nodejs
+    system-config-printer
+    python3
+
+    # system
+    curl
+    wget
+    blueman
+    brightnessctl
     networkmanager
     networkmanagerapplet
-    nodejs
     libnotify
-    unzip
-    stow
-    python3
     home-manager
-    xwayland-satellite
     kdePackages.dolphin
     exfat
     displaylink
-    tailscale
-    system-config-printer
+
+    # portals
+    xwayland-satellite
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
     xdg-desktop-portal-gtk
     xdg-desktop-portal-wlr
-    qt6.qtwayland
-    libsecret
-    appimage-run
-    nmap
-    aravis
+
+    # theming
     gtk3
     gtk4
+    qt6.qtwayland
+
+    # audio
     pipewire
+    pavucontrol
+
+    # secrets
+    libsecret
     age
     sops
-    nushell
-    #jujutsu moved to hm
+    tailscale
 
-    # applications
-    obsidian
-    btop
-    pcmanfm
+    ## ## ## ## ## ## ##
+    ##  applications  ##
+    ## ## ## ## ## ## ##
+    # browser
+    brave
     firefox
-    onlyoffice-bin
-    swaybg
-    ydotool
-    polkit_gnome
-    gparted
-    woeusb
-    pavucontrol
+
+    # messaging/messaging/music
     spotify
     discord
-    brave
-    #vivaldi
     bolt-launcher
-    todoist-electron
-    openscad
 
-    # wayland / hyprland
+    # tools
+    obsidian
+    openscad
+    todoist-electron
+    woeusb
+    gparted
+    onlyoffice-bin
+    freecad
+    pcmanfm
+
+    # other
+    btop
+    ydotool
+    swaybg
+    polkit_gnome
+
+    ## ## ## ## ## ## ## ##
+    # wayland / hyprland ##
+    ## ## ## ## ## ## ## ##
     cliphist
     hyprland
     hyprlock
-    hyprpaper
-    hyprshot
+    grim
+    slurp
     waybar # configure in hm
     swaynotificationcenter
     wlogout
 
-    # git
+    ## ## ## ##
+    ##  git  ##
+    ## ## ## ##
     git
     gh
     lazygit
 
-    # shell
+    ## ## ## ## ##
+    ##   shell  ##
+    ## ## ## ## ##
     fuzzel
     fzf
+    nushell
     eza
     bat
     fastfetch
     zoxide
     zellij
-    uv
+    #uv
     #opencode
-    #starship
     nixfmt-rfc-style
     nixd
     yazi
     just
-    freecad
+    devenv
 
-    # neovim
+    ## ## ## ## ##
+    ##  neovim  ##
+    ## ## ## ## ##
     inputs.nvf-flake.packages.${pkgs.system}.default
-    #neovim
     ripgrep
     gnumake
     ruff
     lua-language-server
-    (pkgs.catppuccin-sddm.override { flavor = "mocha"; })
+    (pkgs.catppuccin-sddm.override {flavor = "mocha";})
   ];
 
+  # recommended per uv
   environment.localBinInPath = true;
 }
