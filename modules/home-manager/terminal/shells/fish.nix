@@ -2,11 +2,10 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   programs.fish = {
     enable = true;
-    plugins = [ ];
+    plugins = [];
     shellAliases = {
       vi = "nvim";
       vim = "nvim";
@@ -48,7 +47,7 @@
       # starship init fish | source
       # enable_transience  # commented out as not available in this fish version
       zoxide init --cmd cd fish | source
-      uv generate-shell-completion fish | source
+      #uv generate-shell-completion fish | source
       set -gx TERM xterm-256color
       fish_add_path ~/.spicetify
       # fish_config theme choose "Catppuccin Mocha"  # requires catppuccin/fish plugin
