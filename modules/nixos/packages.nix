@@ -14,6 +14,10 @@
     appimage-run
     unzip
     stow
+    nix-search-tv
+    nix-output-monitor
+    nurl
+    nh
 
     # software/coding/packaging
     nmap
@@ -76,9 +80,10 @@
     obsidian
     openscad
     todoist-electron
+    ticktick
     woeusb
     gparted
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     freecad
     pcmanfm
 
@@ -118,8 +123,8 @@
     fastfetch
     zoxide
     zellij
-    #uv
-    #opencode
+    uv
+    opencode
     nixfmt-rfc-style
     nixd
     yazi

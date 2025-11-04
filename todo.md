@@ -1,6 +1,7 @@
 # todo 
 
 ## quick 
+- add winboat
 - add fira code fonts
 - look into typs/typst
 - helix? i dont think so but idk 
