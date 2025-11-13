@@ -136,12 +136,15 @@
       "input"
       "video"
       "plugdev"
+      "docker"
     ];
     packages = with pkgs; [];
     shell = pkgs.fish;
     #shell = pkgs.nushell;
     group = "pegasora";
   };
+
+  virtualisation.docker.enable = true;
 
   fonts = {
     packages = with pkgs; [

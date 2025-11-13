@@ -84,7 +84,8 @@ in {
         #};
       };
       spawn-at-startup = [
-        {argv = ["waybar"];}
+        #{argv = ["waybar"];}
+        {argv = ["noctalia-shell"];}
         {argv = ["swaync"];}
         {argv = ["ydotoold"];}
         {

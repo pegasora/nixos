@@ -18,6 +18,16 @@
     nix-output-monitor
     nurl
     nh
+    roboto
+    inter
+    gpu-screen-recorder
+    ddcutil
+    cava
+    wlsunset
+    evolution-data-server
+    inputs.noctalia.packages.${system}.default
+    winboat
+    docker-compose
 
     # software/coding/packaging
     nmap
@@ -40,7 +50,7 @@
     home-manager
     kdePackages.dolphin
     exfat
-    displaylink
+    #displaylink
 
     # portals
     xwayland-satellite
@@ -139,7 +149,6 @@
     gnumake
     ruff
     lua-language-server
-    (pkgs.catppuccin-sddm.override {flavor = "mocha";})
   ];
 
   # recommended per uv

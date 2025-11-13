@@ -63,6 +63,6 @@
       };
     };
   };
-  services.xserver.videoDrivers = ["displaylink" "modesetting"];
+  services.xserver.videoDrivers = ["modesetting"];
   services.udisks2.enable = true;
 }
