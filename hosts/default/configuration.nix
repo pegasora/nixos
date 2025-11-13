@@ -13,6 +13,7 @@
 
     ../../modules/nixos/packages.nix
     ../../modules/nixos/services.nix
+    #./plcs-extra-config.nix
   ];
 
   nix.settings.experimental-features = [
@@ -117,6 +118,7 @@
   programs.fish.enable = true;
   #programs.nushell.enable = true;
   programs.niri.enable = true;
+  programs.niri.package = pkgs.niri-unstable;
   programs.lazygit.enable = true;
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;

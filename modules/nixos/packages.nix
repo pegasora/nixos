@@ -18,6 +18,11 @@
     nix-output-monitor
     nurl
     nh
+
+    # plcs
+    bridge-utils
+
+    # noctalia
     roboto
     inter
     gpu-screen-recorder

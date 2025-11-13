@@ -4,6 +4,7 @@ in {
   programs.niri = {
     enable = true;
     settings = {
+      prefer-no-csd = true;
       input = {
         touchpad = {
           tap = true;
@@ -21,39 +22,48 @@ in {
         warp-mouse-to-focus.enable = true;
       };
       outputs = {
+        #@home
+        # lg - main
         "DP-10" = {
           enable = true;
           position.x = 0;
           position.y = 0;
         };
-        "DP-11" = {
+        # dell - right
+        "DP-9" = {
           enable = true;
           position.x = 2560;
           position.y = 0;
           transform.rotation = 90;
         };
+        #@home
+
+        #@school
+        # left
         "DP-4" = {
           enable = true;
           position.x = 0;
           position.y = 0;
         };
+        # right
         "DP-2" = {
           enable = true;
           position.x = 2560;
           position.y = 0;
-          transform.rotation = 270;
+          #transform.rotation = 270;
         };
-        "DP-12" = {
-          enable = true;
-          position.x = 0;
-          position.y = 0;
-        };
-        "DP-13" = {
-          enable = true;
-          position.x = 2560;
-          position.y = 0;
-          transform.rotation = 90;
-        };
+        #@school
+        #"DP-12" = {
+        #  enable = true;
+        #  position.x = 0;
+        #  position.y = 0;
+        #};
+        #"DP-13" = {
+        #  enable = true;
+        #  position.x = 2560;
+        #  position.y = 0;
+        #  transform.rotation = 90;
+        #};
       };
       layout = {
         gaps = 3;
@@ -104,7 +114,11 @@ in {
           matches = [{app-id = "ghostty";}];
         }
       ];
-      binds = {
+      binds = with config.lib.niri.actions; let
+        sh = spawn "sh" "-c";
+      in {
+        # screenshot utils
+        "super+s".action = sh ''grim -g "$(slurp)" "/home/pegasora/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"'';
         # programs n such
         "super+Space".action.spawn = "fuzzel";
         "super+t".action.spawn = "ghostty";
