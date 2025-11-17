@@ -18,6 +18,7 @@
     nix-output-monitor
     nurl
     nh
+    zotero
 
     # plcs
     bridge-utils
