@@ -98,13 +98,13 @@ in {
         {argv = ["noctalia-shell"];}
         {argv = ["swaync"];}
         {argv = ["ydotoold"];}
-        {
-          argv = [
-            "swaybg"
-            "--image"
-            "/home/pegasora/nixos/wallpapers/curves.jpg"
-          ];
-        }
+        #{
+        #  argv = [
+        #    "swaybg"
+        #    "--image"
+        #    "/home/pegasora/nixos/wallpapers/curves.jpg"
+        #  ];
+        #}
         #{sh = ["sawybg -i \"$(find ~/.config/niri/wallpapers/ -type f | shuf -n 1)\" &"];}
       ];
 
@@ -128,7 +128,7 @@ in {
         "super+o".action.spawn = "obsidian";
         #"super+f".action.spawn = "firefox";
         "super+f".action.spawn = "brave";
-        "super+z".action.spawn = "todoist-electron";
+        "super+z".action.spawn = "ticktick";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
 

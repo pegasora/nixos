@@ -19,6 +19,9 @@
     nurl
     nh
     zotero
+    slack
+    rustscan
+    typst
 
     # plcs
     bridge-utils
