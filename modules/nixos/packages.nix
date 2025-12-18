@@ -22,6 +22,9 @@
     slack
     rustscan
     typst
+    sniffnet
+    zoom-us
+    kdePackages.okular
 
     # plcs
     bridge-utils

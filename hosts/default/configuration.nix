@@ -16,18 +16,30 @@
     #./plcs-extra-config.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    trusted-users = ["root" "pegasora"];
+  };
+
+  nixpkgs.overlays = [
+    inputs.niri.overlays.niri
+
+    #(final: prev: {
+    #  winboat = prev.winboat.overrideAttrs (old: {
+    #    makeCacheWritable = true;
+    #    npmFlags = ["--legacy-peer-deps"];
+    #  });
+    #})
   ];
 
-  nixpkgs.overlays = [inputs.niri.overlays.niri];
-
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 10d";
-  };
+  #nix.gc = {
+  #  automatic = true;
+  #  dates = "weekly";
+  #  options = "--delete-older-than 10d";
+  #};
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -103,13 +115,13 @@
     portal = {
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-gtk
+        #xdg-desktop-portal-gtk
         xdg-desktop-portal-wlr
       ]; # For GNOME; use xdg-desktop-portal-kde for KDE
       wlr.enable = true; # General Wayland support (safe even on GNOME)
-      config.common.default = [
-        "gtk"
-      ];
+      #config.common.default = [
+      #  "gtk"
+      #];
     };
     mime.enable = true; # Enable MIME and URL handler registration
   };
@@ -152,6 +164,8 @@
     packages = with pkgs; [
       corefonts
       vista-fonts
+      stix-two
+      vollkorn
 
       (stdenv.mkDerivation {
         pname = "monolisa-fonts";
