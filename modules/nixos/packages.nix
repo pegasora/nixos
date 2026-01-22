@@ -50,6 +50,7 @@
     nodejs
     system-config-printer
     python3
+    poppler-utils
 
     # system
     curl
