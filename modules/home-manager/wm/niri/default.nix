@@ -113,6 +113,10 @@ in {
           default-column-width.proportion = 1. / 2.;
           matches = [{app-id = "ghostty";}];
         }
+        {
+          default-column-width.proportion = 1. / 2.;
+          matches = [{app-id = "firefox";}];
+        }
       ];
       binds = with config.lib.niri.actions; let
         sh = spawn "sh" "-c";
@@ -126,8 +130,8 @@ in {
         "super+e".action.spawn = "dolphin";
         "super+p".action.spawn = "wlogout";
         "super+o".action.spawn = "obsidian";
-        #"super+f".action.spawn = "firefox";
-        "super+f".action.spawn = "brave";
+        "super+f".action.spawn = "firefox";
+        #"super+f".action.spawn = "brave";
         "super+z".action.spawn = "ticktick";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";

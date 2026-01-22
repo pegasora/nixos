@@ -84,6 +84,11 @@
 
   # bluetooth
   hardware.bluetooth.enable = true;
+  hardware.graphics.enable = true;
+
+  hardware.graphics.extraPackages = with pkgs; [
+    mesa
+  ];
 
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
