@@ -25,6 +25,7 @@
     sniffnet
     zoom-us
     kdePackages.okular
+    lazyjj
 
     # plcs
     bridge-utils
@@ -148,7 +149,8 @@
     zellij
     uv
     opencode
-    nixfmt-rfc-style
+    #nixfmt-rfc-style
+    nixfmt
     nixd
     yazi
     just

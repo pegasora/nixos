@@ -112,7 +112,7 @@
   ## HYPRLAND ##
   ## ## ## ## ##
   programs.hyprland.enable = false;
-  programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;
+  # programs.hyprland.package = inputs.hyprland.packages.${pkgs.system}.default;
   security.rtkit.enable = true;
 
   # Enable XDG portals for Wayland (required for Snaps to access display/file dialogs)
