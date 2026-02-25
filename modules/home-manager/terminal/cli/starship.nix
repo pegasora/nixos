@@ -3,14 +3,13 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
     #enableNushellIntegration = true;
     settings = {
-      palette = "catppuccin_mocha";
+      palette = "kanagawa_wave";
       right_format = lib.concatStrings [
         "$cmd_duration"
         "$time"
@@ -142,6 +141,63 @@
         base = "#1e1e2e";
         mantle = "#181825";
         crust = "#11111b";
+      };
+      palettes.kanagawa_wave = {
+        rosewater = "#938AA9";
+        flamingo = "#957FB8";
+        pink = "#938056";
+        mauve = "#957FB8";
+        red = "#C34043";
+        maroon = "#E46876";
+        peach = "#FFA066";
+        yellow = "#DCA561";
+        green = "#76946A";
+        teal = "#6A9589";
+        sky = "#7FB4CA";
+        sapphire = "#7E9CD8";
+        blue = "#7AA89F";
+        lavender = "#938AA9";
+        text = "#DCD7BA";
+        subtext1 = "#C8C093";
+        subtext0 = "#A6A69C";
+        overlay2 = "#8A9A7B";
+        overlay1 = "#727169";
+        overlay0 = "#626462";
+        surface2 = "#54546D";
+        surface1 = "#363646";
+        surface0 = "#2A2A37";
+
+        base = "#1F1F28";
+        mantle = "#16161D";
+        crust = "#0D0C0C";
+      };
+      palettes.kanagawa_dragon = {
+        rosewater = "#c5c9c5";
+        flamingo = "#a292a3";
+        pink = "#a292a3";
+        mauve = "#8992a7";
+        red = "#c4746e";
+        maroon = "#c4746e";
+        peach = "#b6927b";
+        yellow = "#c4b28a";
+        green = "#8a9a7b";
+        teal = "#8ea4a2";
+        sky = "#8ba4b0";
+        sapphire = "#658594";
+        blue = "#658594";
+        lavender = "#938aa9";
+        text = "#c5c9c5";
+        subtext1 = "#b4b8b4";
+        subtext0 = "#9ca0a0";
+        overlay2 = "#8a8f8f";
+        overlay1 = "#727169";
+        overlay0 = "#626462";
+        surface2 = "#545464";
+        surface1 = "#3c3c4f";
+        surface0 = "#2d2d44";
+        base = "#181820";
+        mantle = "#0f0f17";
+        crust = "#0d0c0c";
       };
     };
   };

@@ -10,7 +10,7 @@
     settings = {
       # Basic settings
       default_shell = lib.getExe pkgs.fish;
-      theme = "catppuccin-mocha";
+      theme = "kanagawa";
 
       # UI settings
       pane_frames = false;
