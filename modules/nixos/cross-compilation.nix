@@ -3,8 +3,7 @@
   pkgs,
   lib,
   ...
-}:
-{
+}: {
   # Enable binfmt emulation for cross-compilation to ARM architectures
   boot.binfmt.emulatedSystems = [
     "aarch64-linux" # 64-bit ARM (Raspberry Pi 3, 4, 5, etc.)

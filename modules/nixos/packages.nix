@@ -65,7 +65,6 @@
     home-manager
     kdePackages.dolphin
     exfat
-    #displaylink
 
     # portals
     xwayland-satellite
@@ -103,13 +102,11 @@
 
     # tools
     obsidian
-    openscad
     todoist-electron
     ticktick
     woeusb
     gparted
     onlyoffice-desktopeditors
-    freecad
     pcmanfm
 
     # other
@@ -150,12 +147,17 @@
     zellij
     uv
     opencode
-    #nixfmt-rfc-style
     nixfmt
     nixd
     yazi
     just
     devenv
+
+    # NOTE: Deprecated packages
+    #nixfmt-rfc-style
+    #displaylink
+    #freecad
+    #openscad
 
     ## ## ## ## ##
     ##  neovim  ##
