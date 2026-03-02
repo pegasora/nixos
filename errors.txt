@@ -1,0 +1,18 @@
+ just switch                                                                                            took 7m1s at 14:58 ❄️ 
+nh os switch .
+> Building NixOS configuration
+warning: Git tree '/home/pegasora/nixos' is dirty
+warning: input 'noctalia' has an override for a non-existent input 'quickshell'
+copying path '/nix/store/z2bsz1xw44k3gbkb4ks4ds8p0gyspvwb-source' from 'https://cache.nixos.org'
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+evaluation warning: The default value of `programs.yazi.shellWrapperName` has changed from `yy` to `y`.
+                    You are currently using the legacy default (`yy`) because `home.stateVersion` is less than "26.05".
+                    To silence this warning and keep legacy behavior, set:
+                      programs.yazi.shellWrapperName = "yy";
+                    To adopt the new default behavior, set:
+                      programs.yazi.shellWrapperName = "y";
+evaluation warning: The xorg package set has been deprecated, 'xorg.libxcb' has been renamed to 'libxcb'
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+copying path '/nix/store/4ggd0kb8as38xa0kr730qpnsa89df0x7-source' from 'https://cache.nixos.org'
+evaluation warning: pegasora profile: The option `programs.kitty.theme' defined in `/nix/store/5ykygrnh2hi2jaf6q9kifiz315nrh05z-source/modules/home-manager/terminal/emulators/kitty.nix' has been changed to `programs.kitty.themeFile' that has a different type. Please read `programs.kitty.themeFile' documentation and update your configuration accordingly.
+these 173 derivations will be built:
