@@ -11,8 +11,9 @@
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
 
-    ../../modules/nixos/packages.nix
-    ../../modules/nixos/services.nix
+    ../../modules/nixos/default.nix
+    #../../modules/nixos/packages.nix
+    #../../modules/nixos/services.nix
     #./plcs-extra-config.nix
   ];
 
