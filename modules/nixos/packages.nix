@@ -26,6 +26,7 @@
     zoom-us
     kdePackages.okular
     lazyjj
+    timeshift
 
     # plcs
     bridge-utils

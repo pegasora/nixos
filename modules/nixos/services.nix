@@ -4,6 +4,9 @@
   lib,
   ...
 }: {
+  # for bios updates
+  services.fwupd.enable = true;
+
   # tailscale
   services.tailscale.enable = true;
 

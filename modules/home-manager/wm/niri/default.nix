@@ -52,18 +52,6 @@ in {
           position.y = 0;
           #transform.rotation = 270;
         };
-        #@school
-        #"DP-12" = {
-        #  enable = true;
-        #  position.x = 0;
-        #  position.y = 0;
-        #};
-        #"DP-13" = {
-        #  enable = true;
-        #  position.x = 2560;
-        #  position.y = 0;
-        #  transform.rotation = 90;
-        #};
       };
       layout = {
         gaps = 3;
@@ -111,7 +99,7 @@ in {
       window-rules = [
         {
           default-column-width.proportion = 1. / 2.;
-          matches = [{app-id = "ghostty";}];
+          matches = [{app-id = "kitty";}];
         }
         {
           default-column-width.proportion = 1. / 2.;
@@ -124,18 +112,19 @@ in {
         # screenshot utils
         "super+s".action = sh ''grim -g "$(slurp)" "/home/pegasora/Pictures/Screenshots/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"'';
         # programs n such
-        "super+Space".action.spawn = "fuzzel";
-        "super+t".action.spawn = "ghostty";
+        #"super+Space".action.spawn = "fuzzel";
+        "super+Space".action = sh "noctalia-shell ipc call launcher toggle";
+        "super+t".action.spawn = "kitty";
         #"super+shift+l".action.spawn = "hyprlock";
         "super+e".action.spawn = "dolphin";
-        "super+p".action.spawn = "wlogout";
+        "super+p".action = sh "noctalia-shell ipc call sessionMenu toggle";
         "super+o".action.spawn = "obsidian";
         "super+f".action.spawn = "firefox";
         #"super+f".action.spawn = "brave";
         "super+z".action.spawn = "ticktick";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";
         #"super+v".action.spawn = "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy";
-
+        "super+v".action = sh "noctalia-shell ipc call launcher clipboard";
         # close apps
         "super+q".action = a.close-window;
 
