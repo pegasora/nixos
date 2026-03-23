@@ -53,6 +53,8 @@
     system-config-printer
     python3
     poppler-utils
+    platformio
+    avrdude
 
     # system
     curl
@@ -152,6 +154,7 @@
     yazi
     just
     devenv
+    superfile
 
     # NOTE: Deprecated packages
     #nixfmt-rfc-style

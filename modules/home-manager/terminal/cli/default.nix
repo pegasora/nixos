@@ -4,5 +4,6 @@
     ./yazi.nix
     ./zoxide.nix
     ./jj.nix
+    #./superfile.nix
   ];
 }

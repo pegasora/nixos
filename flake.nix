@@ -14,10 +14,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # fonts
-    monolisa = {
-      url = "github:pegasora/Monolisa";
-      flake = false;
-    };
+    #monolisa = {
+    #  url = "github:pegasora/Monolisa";
+    #  flake = false;
+    #};
     comic-code = {
       url = "github:pegasora/Comic-Code";
       flake = false;

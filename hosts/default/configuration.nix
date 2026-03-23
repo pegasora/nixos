@@ -22,18 +22,15 @@
       "nix-command"
       "flakes"
     ];
-    trusted-users = ["root" "pegasora"];
+    trusted-users = [
+      "root"
+      "pegasora"
+    ];
   };
 
   nixpkgs.overlays = [
     inputs.niri.overlays.niri
-
-    #(final: prev: {
-    #  winboat = prev.winboat.overrideAttrs (old: {
-    #    makeCacheWritable = true;
-    #    npmFlags = ["--legacy-peer-deps"];
-    #  });
-    #})
+    #(import ../../overlays/winboat-fixes.nix)
   ];
 
   #nix.gc = {
@@ -156,6 +153,7 @@
       "input"
       "video"
       "plugdev"
+      "dialout"
       "docker"
     ];
     packages = with pkgs; [];
@@ -173,19 +171,19 @@
       stix-two
       vollkorn
 
-      (stdenv.mkDerivation {
-        pname = "monolisa-fonts";
-        version = "2025-09-13";
-        src = inputs.monolisa;
-        dontBuild = true;
-        installPhase = ''
-          mkdir -p "$out/share/fonts/truetype/MonoLisa"
-          for f in "$src"/*.ttf; do
-            [ -e "$f" ] || continue
-            cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
-          done
-        '';
-      })
+      #(stdenv.mkDerivation {
+      #  pname = "monolisa-fonts";
+      #  version = "2025-09-13";
+      #  src = inputs.monolisa;
+      #  dontBuild = true;
+      #  installPhase = ''
+      #    mkdir -p "$out/share/fonts/truetype/MonoLisa"
+      #    for f in "$src"/*.ttf; do
+      #      [ -e "$f" ] || continue
+      #      cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
+      #    done
+      #  '';
+      #})
       (stdenv.mkDerivation {
         pname = "comiccode-font";
         version = "2025-09-13";
