@@ -13,6 +13,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     # fonts
     #monolisa = {
     #  url = "github:pegasora/Monolisa";
@@ -42,6 +43,17 @@
       url = "github:outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    fw-fanctrl = {
+      url = "github:TamtamHero/fw-fanctrl/packaging/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    claude-code = {
+      url = "github:sadjow/claude-code-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    claude-desktop = {
+      url = "github:aaddrick/claude-desktop-debian";
+    };
     noctalia = {
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +70,9 @@
     niri,
     disko,
     nixos-anywhere,
+    fw-fanctrl,
+    claude-code,
+    claude-desktop,
     ...
   } @ inputs: {
     nixosConfigurations = {

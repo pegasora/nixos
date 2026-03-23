@@ -7,6 +7,9 @@
   # for bios updates
   services.fwupd.enable = true;
 
+  # netbird
+  services.netbird.enable = true;
+
   # tailscale
   services.tailscale.enable = true;
 

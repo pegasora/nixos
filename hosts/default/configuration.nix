@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
+    inputs.fw-fanctrl.nixosModules.default
 
     ../../modules/nixos/default.nix
     #../../modules/nixos/packages.nix
@@ -30,6 +31,8 @@
 
   nixpkgs.overlays = [
     inputs.niri.overlays.niri
+    inputs.claude-desktop.overlays.default
+    #inputs.claude-code.overlays.default
     #(import ../../overlays/winboat-fixes.nix)
   ];
 
@@ -137,6 +140,14 @@
   programs.lazygit.enable = true;
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
+
+  # fw-fanctrl
+  programs.fw-fanctrl = {
+    enable = true;
+    config = {
+      defaultStrategy = "deaf";
+    };
+  };
 
   # group
   users.groups.pegasora = {};

@@ -96,6 +96,9 @@
     # browser
     brave
     firefox
+    claude-code
+    #inputs.claude-desktop.packages.${system}.claude-desktop
+    claude-desktop
 
     # messaging/messaging/music
     spotify

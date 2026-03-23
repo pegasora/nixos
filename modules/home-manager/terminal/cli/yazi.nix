@@ -2,7 +2,6 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
-    #enableNushellIntegration = true;
 
     keymap.mgr.prepend_keymap = [
       {
