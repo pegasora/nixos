@@ -9,7 +9,8 @@
     enableFishIntegration = true;
     #enableNushellIntegration = true;
     settings = {
-      palette = "kanagawa_wave";
+      # palette managed by stylix (set to "base16") — see modules/nixos/stylix.nix
+      # palette = "kanagawa_wave";
       right_format = lib.concatStrings [
         "$cmd_duration"
         "$time"

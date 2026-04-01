@@ -27,6 +27,7 @@
     kdePackages.okular
     lazyjj
     timeshift
+    localsend
 
     # plcs
     bridge-utils
@@ -53,6 +54,8 @@
     system-config-printer
     python3
     poppler-utils
+    platformio
+    avrdude
 
     # system
     curl
@@ -92,8 +95,9 @@
     ##  applications  ##
     ## ## ## ## ## ## ##
     # browser
-    brave
     firefox
+    claude-code
+    claude-desktop
 
     # messaging/messaging/music
     spotify
@@ -152,12 +156,6 @@
     yazi
     just
     devenv
-
-    # NOTE: Deprecated packages
-    #nixfmt-rfc-style
-    #displaylink
-    #freecad
-    #openscad
 
     ## ## ## ## ##
     ##  neovim  ##

@@ -7,6 +7,9 @@
   # for bios updates
   services.fwupd.enable = true;
 
+  # netbird
+  services.netbird.enable = true;
+
   # tailscale
   services.tailscale.enable = true;
 
@@ -72,4 +75,7 @@
   };
   services.xserver.videoDrivers = ["modesetting"];
   services.udisks2.enable = true;
+
+  # PlatformIO udev rules for USB device access (microcontrollers)
+  services.udev.packages = [pkgs.platformio-core.udev pkgs.openocd];
 }

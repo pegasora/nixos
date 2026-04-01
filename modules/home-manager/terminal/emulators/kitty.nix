@@ -2,10 +2,12 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "Comic Code Ligatures";
+      # name managed by stylix.fonts — see modules/nixos/stylix.nix
+      # name = "Comic Code Ligatures";
       size = 12;
     };
-    theme = "Kanagawa";
+    # theme managed by stylix — see modules/nixos/stylix.nix
+    # theme = "Kanagawa";
     shellIntegration.enableFishIntegration = true;
     settings = {
       # extra kitty font settings

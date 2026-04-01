@@ -10,7 +10,7 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
-
+    inputs.fw-fanctrl.nixosModules.default
     ../../modules/nixos/default.nix
     #../../modules/nixos/packages.nix
     #../../modules/nixos/services.nix
@@ -22,19 +22,25 @@
       "nix-command"
       "flakes"
     ];
-    trusted-users = ["root" "pegasora"];
+    trusted-users = [
+      "root"
+      "pegasora"
+    ];
   };
 
   nixpkgs.overlays = [
     inputs.niri.overlays.niri
-
-    #(final: prev: {
-    #  winboat = prev.winboat.overrideAttrs (old: {
-    #    makeCacheWritable = true;
-    #    npmFlags = ["--legacy-peer-deps"];
-    #  });
-    #})
+    inputs.claude-desktop.overlays.default
+    #inputs.claude-code.overlays.default
+    #(import ../../overlays/winboat-fixes.nix)
+    (import ../../overlays/winboat-e3c7fb8.nix)
   ];
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+    polarity = "dark";
+  };
 
   #nix.gc = {
   #  automatic = true;
@@ -50,6 +56,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # LocalSend
+  networking.firewall.allowedTCPPorts = [53317];
+  networking.firewall.allowedUDPPorts = [53317];
   programs.nm-applet.enable = true;
   programs.xwayland.enable = true;
   programs.spicetify = let
@@ -71,8 +81,9 @@
       pointer
     ];
 
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    # theme/colorScheme managed by stylix — see modules/nixos/stylix.nix
+    # theme = spicePkgs.themes.catppuccin;
+    # colorScheme = "mocha";
   };
 
   # Ensure Wayland support for Electron
@@ -141,6 +152,14 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
+  # fw-fanctrl
+  programs.fw-fanctrl = {
+    enable = true;
+    config = {
+      defaultStrategy = "deaf";
+    };
+  };
+
   # group
   users.groups.pegasora = {};
 
@@ -156,6 +175,7 @@
       "input"
       "video"
       "plugdev"
+      "dialout"
       "docker"
     ];
     packages = with pkgs; [];
@@ -173,32 +193,33 @@
       stix-two
       vollkorn
 
-      (stdenv.mkDerivation {
-        pname = "monolisa-fonts";
-        version = "2025-09-13";
-        src = inputs.monolisa;
-        dontBuild = true;
-        installPhase = ''
-          mkdir -p "$out/share/fonts/truetype/MonoLisa"
-          for f in "$src"/*.ttf; do
-            [ -e "$f" ] || continue
-            cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
-          done
-        '';
-      })
-      (stdenv.mkDerivation {
-        pname = "comiccode-font";
-        version = "2025-09-13";
-        src = inputs.comic-code;
-        dontBuild = true;
-        installPhase = ''
-          mkdir -p "$out/share/fonts/truetype/Comic-Code"
-          for f in "$src"/*.ttf; do
-            [ -e "$f" ] || continue
-            cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
-          done
-        '';
-      })
+      #(stdenv.mkDerivation {
+      #  pname = "monolisa-fonts";
+      #  version = "2025-09-13";
+      #  src = inputs.monolisa;
+      #  dontBuild = true;
+      #  installPhase = ''
+      #    mkdir -p "$out/share/fonts/truetype/MonoLisa"
+      #    for f in "$src"/*.ttf; do
+      #      [ -e "$f" ] || continue
+      #      cp -v "$f" "$out/share/fonts/truetype/MonoLisa/"
+      #    done
+      #  '';
+      #})
+      # managed by stylix.fonts — see modules/nixos/stylix.nix
+      #(stdenv.mkDerivation {
+      #  pname = "comiccode-font";
+      #  version = "2025-09-13";
+      #  src = inputs.comic-code;
+      #  dontBuild = true;
+      #  installPhase = ''
+      #    mkdir -p "$out/share/fonts/truetype/Comic-Code"
+      #    for f in "$src"/*.ttf; do
+      #      [ -e "$f" ] || continue
+      #      cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
+      #    done
+      #  '';
+      #})
     ];
 
     fontDir.enable = true;

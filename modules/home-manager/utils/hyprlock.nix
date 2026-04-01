@@ -2,9 +2,10 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      variables = {
-        "$font" = "Comic Code Ligatures";
-      };
+      # font managed by stylix — see modules/nixos/stylix.nix
+      # variables = {
+      #   "$font" = "Comic Code Ligatures";
+      # };
 
       general = {
         hide_cursor = true;
@@ -34,14 +35,15 @@
         monitor = "";
         size = "20%, 5%";
         outline_thickness = 3;
-        inner_color = "rgba(0, 0, 0, 0.0)";
-        outer_color = "rgba(706F75E6) rgba(A15561E6) 45deg";
-        check_color = "rgba(A15561E6) rgba(706F75E6) 120deg";
-        fail_color = "rgba(A15561E6) rgba(706F75E6) 40deg";
-        font_color = "rgba(144, 142, 143, 0.8)";
+        # colors managed by stylix — see modules/nixos/stylix.nix
+        # inner_color = "rgba(0, 0, 0, 0.0)";
+        # outer_color = "rgba(706F75E6) rgba(A15561E6) 45deg";
+        # check_color = "rgba(A15561E6) rgba(706F75E6) 120deg";
+        # fail_color = "rgba(A15561E6) rgba(706F75E6) 40deg";
+        # font_color = "rgba(144, 142, 143, 0.8)";
         fade_on_empty = false;
         rounding = 15;
-        font_family = "$font Italic";
+        # font_family = "$font Italic";
         placeholder_text = "Knock, knock! Who's there?";
         fail_text = "$PAMFAIL";
         dots_spacing = 0.3;
@@ -56,7 +58,7 @@
           text = "cmd[update:1000] echo \"$(date +\\\"%H\\\")\"";
           color = "rgba(127, 116, 147, 1)";
           font_size = 160;
-          font_family = "$font ExtraBold";
+          font_family = "Comic Code Ligatures ExtraBold";
           position = "0, 100";
           halign = "center";
           valign = "center";
@@ -66,7 +68,7 @@
           text = "cmd[update:1000] echo \"$(date +\\\"%M\\\")\"";
           color = "rgba(79, 74, 102, 1.0)";
           font_size = 160;
-          font_family = "$font ExtraBold";
+          font_family = "Comic Code Ligatures ExtraBold";
           position = "0, -100";
           halign = "center";
           valign = "center";
@@ -76,7 +78,7 @@
           text = "cmd[update:60000] date +\\\"%A, %d %B %Y\\\"";
           color = "rgba(112, 111, 117, 0.9)";
           font_size = 20;
-          font_family = "$font Italic Bold";
+          font_family = "Comic Code Ligatures Italic Bold";
           position = "0, 300";
           halign = "center";
           valign = "bottom";
@@ -86,7 +88,7 @@
           text = "cmd[] echo -e \"  Hello, $USER!\$( [ \\\"$ATTEMPTS\\\" != \\\"0\\\" ] && echo \\\" ($ATTEMPTS)\\\")\"";
           color = "rgba(112, 111, 117, 0.9)";
           font_size = 20;
-          font_family = "$font Italic Bold";
+          font_family = "Comic Code Ligatures Italic Bold";
           position = "0, 150";
           halign = "center";
           valign = "bottom";
@@ -96,7 +98,7 @@
           text = "cmd[update:100] [ \"\$(cat /sys/class/leds/input*::capslock/brightness 2>/dev/null)\" = \"1\" ] && echo \"Caps Lock is Active!\"";
           color = "rgba(161, 85, 97, 0.9)";
           font_size = 15;
-          font_family = "$font Italic Bold";
+          font_family = "Comic Code Ligatures Italic Bold";
           position = "0, 100";
           halign = "center";
           valign = "bottom";
