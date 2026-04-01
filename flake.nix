@@ -4,21 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     niri.url = "github:sodiboo/niri-flake";
-    #hyprland.url = "github:hyprwm/Hyprland";
-    #split-monitor-workspaces = {
-    #  url = "github:Duckonaut/split-monitor-workspaces";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # fonts
-    #monolisa = {
-    #  url = "github:pegasora/Monolisa";
-    #  flake = false;
-    #};
     comic-code = {
       url = "github:pegasora/Comic-Code";
       flake = false;
@@ -59,6 +48,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.quickshell.follows = "quickshell"; # Use same quickshell version
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # For Raspberry Pi hardware support (optional but recommended for Pis)
     #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -73,6 +66,7 @@
     fw-fanctrl,
     claude-code,
     claude-desktop,
+    stylix,
     ...
   } @ inputs: {
     nixosConfigurations = {

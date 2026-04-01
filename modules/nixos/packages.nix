@@ -27,6 +27,7 @@
     kdePackages.okular
     lazyjj
     timeshift
+    localsend
 
     # plcs
     bridge-utils
@@ -94,10 +95,8 @@
     ##  applications  ##
     ## ## ## ## ## ## ##
     # browser
-    brave
     firefox
     claude-code
-    #inputs.claude-desktop.packages.${system}.claude-desktop
     claude-desktop
 
     # messaging/messaging/music
@@ -157,13 +156,6 @@
     yazi
     just
     devenv
-    superfile
-
-    # NOTE: Deprecated packages
-    #nixfmt-rfc-style
-    #displaylink
-    #freecad
-    #openscad
 
     ## ## ## ## ##
     ##  neovim  ##

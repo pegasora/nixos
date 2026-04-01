@@ -3,38 +3,40 @@
     enable = true;
     enableFishIntegration = true;
 
-    themes = {
-      kanagawa-wave = {
-        background = "16161d"; # sumiInk0
-        foreground = "dcd7ba"; # fujiWhite
-        cursor-color = "c8c093"; # oldWhite / soft cursor
-        selection-background = "2d4f67"; # subtle selection bg (common in kanagawa ports)
-        selection-foreground = "c8c093";
-
-        palette = [
-          "0=#16161d" # sumiInk0 / very dark bg
-          "1=#c34043" # autumnRed / bright red
-          "2=#76946a" # autumnGreen
-          "3=#c4b28a" # -> adjusted to carpYellow-ish #e6c384 but standard is often softer
-          "4=#7e9cd8" # crystalBlue
-          "5=#957fb8" # oniViolet
-          "6=#7aa89f" # waveAqua2
-          "7=#c8c093" # oldWhite
-          "8=#54546d" # sumiInk4 / dark gray
-          "9=#e46876" # waveRed
-          "10=#98bb6c" # springGreen
-          "11=#e6c384" # carpYellow
-          "12=#7fb4ca" # lighter blue (springBlue / common accent)
-          "13=#938aa9" # violet-gray
-          "14=#6a9589" # waveAqua1
-          "15=#c5c9c5" # light fg variant
-        ];
-      };
-    };
+    # theme/colors managed by stylix — see modules/nixos/stylix.nix
+    # themes = {
+    #   kanagawa-wave = {
+    #     background = "16161d"; # sumiInk0
+    #     foreground = "dcd7ba"; # fujiWhite
+    #     cursor-color = "c8c093"; # oldWhite / soft cursor
+    #     selection-background = "2d4f67"; # subtle selection bg (common in kanagawa ports)
+    #     selection-foreground = "c8c093";
+    #
+    #     palette = [
+    #       "0=#16161d" # sumiInk0 / very dark bg
+    #       "1=#c34043" # autumnRed / bright red
+    #       "2=#76946a" # autumnGreen
+    #       "3=#c4b28a" # -> adjusted to carpYellow-ish #e6c384 but standard is often softer
+    #       "4=#7e9cd8" # crystalBlue
+    #       "5=#957fb8" # oniViolet
+    #       "6=#7aa89f" # waveAqua2
+    #       "7=#c8c093" # oldWhite
+    #       "8=#54546d" # sumiInk4 / dark gray
+    #       "9=#e46876" # waveRed
+    #       "10=#98bb6c" # springGreen
+    #       "11=#e6c384" # carpYellow
+    #       "12=#7fb4ca" # lighter blue (springBlue / common accent)
+    #       "13=#938aa9" # violet-gray
+    #       "14=#6a9589" # waveAqua1
+    #       "15=#c5c9c5" # light fg variant
+    #     ];
+    #   };
+    # };
 
     settings = {
-      theme = "kanagawa-wave";
-      font-family = "Comic Code Ligatures";
+      # theme/font managed by stylix — see modules/nixos/stylix.nix
+      # theme = "kanagawa-wave";
+      # font-family = "Comic Code Ligatures";
       window-decoration = false;
       mouse-hide-while-typing = true;
       confirm-close-surface = false;

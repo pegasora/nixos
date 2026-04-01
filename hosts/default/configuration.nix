@@ -11,7 +11,6 @@
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
     inputs.fw-fanctrl.nixosModules.default
-
     ../../modules/nixos/default.nix
     #../../modules/nixos/packages.nix
     #../../modules/nixos/services.nix
@@ -34,7 +33,14 @@
     inputs.claude-desktop.overlays.default
     #inputs.claude-code.overlays.default
     #(import ../../overlays/winboat-fixes.nix)
+    (import ../../overlays/winboat-e3c7fb8.nix)
   ];
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/kanagawa.yaml";
+    polarity = "dark";
+  };
 
   #nix.gc = {
   #  automatic = true;
@@ -50,6 +56,10 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # LocalSend
+  networking.firewall.allowedTCPPorts = [53317];
+  networking.firewall.allowedUDPPorts = [53317];
   programs.nm-applet.enable = true;
   programs.xwayland.enable = true;
   programs.spicetify = let
@@ -71,8 +81,9 @@
       pointer
     ];
 
-    theme = spicePkgs.themes.catppuccin;
-    colorScheme = "mocha";
+    # theme/colorScheme managed by stylix — see modules/nixos/stylix.nix
+    # theme = spicePkgs.themes.catppuccin;
+    # colorScheme = "mocha";
   };
 
   # Ensure Wayland support for Electron
@@ -195,19 +206,20 @@
       #    done
       #  '';
       #})
-      (stdenv.mkDerivation {
-        pname = "comiccode-font";
-        version = "2025-09-13";
-        src = inputs.comic-code;
-        dontBuild = true;
-        installPhase = ''
-          mkdir -p "$out/share/fonts/truetype/Comic-Code"
-          for f in "$src"/*.ttf; do
-            [ -e "$f" ] || continue
-            cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
-          done
-        '';
-      })
+      # managed by stylix.fonts — see modules/nixos/stylix.nix
+      #(stdenv.mkDerivation {
+      #  pname = "comiccode-font";
+      #  version = "2025-09-13";
+      #  src = inputs.comic-code;
+      #  dontBuild = true;
+      #  installPhase = ''
+      #    mkdir -p "$out/share/fonts/truetype/Comic-Code"
+      #    for f in "$src"/*.ttf; do
+      #      [ -e "$f" ] || continue
+      #      cp -v "$f" "$out/share/fonts/truetype/Comic-Code/"
+      #    done
+      #  '';
+      #})
     ];
 
     fontDir.enable = true;
