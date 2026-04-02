@@ -41,6 +41,7 @@ modules/nixos/          # System-level modules (imported via default.nix)
   packages.nix          # System package list
   services.nix          # Services (pipewire, tailscale, flatpak, kanata, etc.)
   cross-compilation.nix # ARM binfmt emulation support
+  stylix.nix            # Theming master — fonts, colors, base16 scheme
 
 modules/home-manager/   # User-level modules (imported via default.nix)
   terminal/             # shells/, cli/, multiplexers/, emulators/
@@ -57,6 +58,18 @@ DevShells/python/       # devenv.sh Python dev shell
 - **`default.nix` aggregators** — each subdirectory has a `default.nix` that imports its siblings
 - Modules use standard `enable = true/false` toggles
 - Overlays are passed via `nixpkgs.overlays` in the flake outputs
+
+### Stylix (Theming)
+`modules/nixos/stylix.nix` is the single source of truth for fonts and colors. It:
+- Sets the base16 scheme (`kanagawa.yaml`) and polarity
+- Builds the `comiccode-font` derivation from `inputs.comic-code` and sets it as the font for all stylix slots (monospace, sansSerif, serif)
+- Automatically configures supported programs (kitty, ghostty, hyprlock, starship, yazi, spicetify, Qt/Kvantum, GTK, etc.)
+
+**When adding a new program:** check if stylix has a module for it. If it does, comment out any `theme`, `font`, or color settings in that program's nix file with a `# managed by stylix` note — otherwise the build will fail with a "conflicting definition values" error.
+
+**Qt apps** (e.g. Dolphin) pick up the stylix Kvantum theme via `QT_QPA_PLATFORMTHEME = "qt5ct"` set in `environment.sessionVariables`.
+
+**MIME defaults** are managed declaratively via `xdg.mimeApps` in `hosts/default/home.nix`. To make a new file-type association permanent, add it there rather than relying on per-app dialogs.
 
 ### Active Overlays
 `overlays/winboat-e3c7fb8.nix` patches the winboat package (Windows VM frontend):

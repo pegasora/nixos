@@ -52,6 +52,10 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    helium = {
+      url = "github:AlvaroParker/helium-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # For Raspberry Pi hardware support (optional but recommended for Pis)
     #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -67,6 +71,7 @@
     claude-code,
     claude-desktop,
     stylix,
+    helium,
     ...
   } @ inputs: {
     nixosConfigurations = {
