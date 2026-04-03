@@ -92,6 +92,7 @@
     ELECTRON_OZONE_PLATFORM_HINT = "auto"; # Let Electron pick Wayland/X11
     XDG_CURRENT_DESKTOP = "niri";
     XDG_SESSION_DESKTOP = "niri"; # Optional, for extra compatibility
+    QT_QPA_PLATFORMTHEME = "qt5ct"; # Let stylix/Kvantum theme Qt apps (Dolphin, etc.)
   };
 
   # bluetooth

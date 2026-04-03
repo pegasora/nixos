@@ -148,4 +148,30 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      # Browser
+      "text/html"                       = "firefox.desktop";
+      "x-scheme-handler/http"           = "firefox.desktop";
+      "x-scheme-handler/https"          = "firefox.desktop";
+      "x-scheme-handler/about"          = "firefox.desktop";
+      "x-scheme-handler/chrome"         = "firefox.desktop";
+      "application/x-extension-htm"     = "firefox.desktop";
+      "application/x-extension-html"    = "firefox.desktop";
+      "application/x-extension-shtml"   = "firefox.desktop";
+      "application/x-extension-xht"     = "firefox.desktop";
+      "application/x-extension-xhtml"   = "firefox.desktop";
+      "application/xhtml+xml"           = "firefox.desktop";
+      # Images
+      "image/png"                        = "okular.desktop";
+      "image/jpeg"                       = "okular.desktop";
+      "image/gif"                        = "okular.desktop";
+      "image/webp"                       = "okular.desktop";
+      "image/svg+xml"                    = "okular.desktop";
+      # Documents
+      "application/pdf"                  = "okular.desktop";
+    };
+  };
 }

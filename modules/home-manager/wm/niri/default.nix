@@ -103,7 +103,7 @@ in {
         }
         {
           default-column-width.proportion = 1. / 2.;
-          matches = [{app-id = "firefox";}];
+          matches = [{app-id = "helium";}];
         }
       ];
       binds = with config.lib.niri.actions; let
@@ -119,7 +119,7 @@ in {
         "super+e".action.spawn = "dolphin";
         "super+p".action = sh "noctalia-shell ipc call sessionMenu toggle";
         "super+o".action.spawn = "obsidian";
-        "super+f".action.spawn = "firefox";
+        "super+f".action.spawn = "helium";
         #"super+f".action.spawn = "brave";
         "super+z".action.spawn = "ticktick";
         #"super+n".action.spawn = "sh" "-c" "swaync-client -t -sw";

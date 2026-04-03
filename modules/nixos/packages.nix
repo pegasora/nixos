@@ -28,6 +28,9 @@
     lazyjj
     timeshift
     localsend
+    pdfarranger
+    inputs.helium.packages.${system}.default
+    evtest
 
     # plcs
     bridge-utils
