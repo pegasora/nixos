@@ -1,57 +1,97 @@
 # nixos
 
-## New system setup (with installer)
-- do a barebones install of nixos 
-- enable git, vim 
-- enable flakes and nix-command 
-- download this repo to home dir 
-- switch to it
+Personal NixOS flake configuration for `nixos` (primary machine). A second host `olympus` is planned but not yet created.
 
-## New system Setup (with disko)
-1. update 
-```bash
-nix-channel --update
-``` 
+## Daily Commands
 
-2. clone this repo 
 ```bash
-git clone https://github.com/pegasora/nixos /tmp/nixos-config
-cd /tmp/nixos-config
-```
-3. identify disks, set up disko and config 
-```bash 
-lsblk
+just switch        # Build and switch to current config (uses nh, auto-detects hostname)
+just update        # Update flake.lock (nix flake update)
+just clean         # Clean old generations (nh clean all)
 ```
 
-4. make sure to enable/disable disko in the flake
-
-5. Partition, Format, and Mount with Disko
+Dry-run / check without switching:
 ```bash
-sudo nix run github:nix-community/disko --extra-experimental-features 'nix-command flakes' -- --mode disko /tmp/nixos-config/disko.nix
+nix flake check
+nixos-rebuild dry-activate --flake "./#nixos"
 ```
 
-6. Generate Hardware config 
+## Stack
+
+| Layer | Tool |
+|---|---|
+| Base | NixOS (nixpkgs-unstable) |
+| WM | niri (Wayland compositor) |
+| Bar / Shell | Noctalia |
+| Theming | Stylix (kanagawa dark, Comic Code Ligatures) |
+| Terminal | Ghostty / Kitty |
+| Shell | Fish |
+| Editor | Neovim (via nvf-flake) |
+| Dotfiles | Home Manager |
+| Secrets | SOPS + age |
+
+## Fresh Install (nixos-anywhere / disko)
+
+### 1. Boot the target machine from a NixOS ISO
+
+### 2. On your dev machine, run nixos-anywhere
+
+```bash
+nix run .#nixos-anywhere -- --flake .#nixos root@<target-ip>
+```
+
+This will partition, format, and install in one shot using the disko config.
+
+### 3. Generate hardware config (if setting up a new host)
+
 ```bash
 nixos-generate-config --root /mnt --no-filesystems
+# copy the result into hosts/<hostname>/hardware-configuration.nix
 ```
 
-7. install with flake 
+### 4. Post-install: SOPS keys
 
-### copy your config dir to the mounted system
+Copy your age key to the new machine:
 ```bash
-sudo cp -r /tmp/nixos-config/* /mnt/etc/nixos/
+scp keys.txt root@<target>:/etc/sops/age/keys.txt
+ssh root@<target> chmod 600 /etc/sops/age/keys.txt
 ```
 
-### Build and install
+Test decryption:
 ```bash
-nixos-install --flake /mnt/etc/nixos#yourHostname --no-root-passwd
+sops -d ./secrets/proton_wg.conf.age
 ```
 
-8. reboot 
-```bash
-reboot
+## Adding a New Host
+
+1. Create `hosts/<hostname>/` with `configuration.nix`, `home.nix`, `hardware-configuration.nix`
+2. Add the host to `flake.nix` under `nixosConfigurations`
+3. Add a disko config under `disks/` if needed
+
+## Module Layout
+
+```
+hosts/default/          # Per-machine config
+  configuration.nix     # System: bootloader, services, imports
+  home.nix              # Home Manager entry point
+  hardware-configuration.nix
+
+modules/nixos/          # System-level modules
+  packages.nix          # System package list
+  services.nix          # Services (pipewire, tailscale, flatpak, kanata, etc.)
+  cross-compilation.nix # ARM binfmt emulation
+  stylix.nix            # Theming — fonts, colors, base16 scheme
+
+modules/home-manager/   # User-level modules
+  terminal/             # shells/, cli/, multiplexers/, emulators/
+  wm/                   # niri/ (active), hyprland/ (disabled)
+  utils/                # fuzzel, swaync, hyprlock, noctalia, etc.
+
+overlays/               # Package overrides (winboat fixes)
+disks/                  # Disko partition configs
+DevShells/python/       # devenv.sh Python dev shell
 ```
 
-# Sops 
-Post-Build Key Setup: After first rebuild, securely copy keys.txt to /etc/sops/age/keys.txt (e.g., via scp from dev machine). Set perms: chmod 600 /etc/sops/age/keys.txt. For production, use sops.age.generateKey = true; in config to auto-gen on first boot (but back it up!).
-Test decryption: sops -d ./secrets/proton_wg.conf.age (should show plaintext).
+## Theming
+
+All fonts and colors flow from `modules/nixos/stylix.nix`. When adding a new program, check if stylix has a module for it — if so, comment out any conflicting `theme`/`font`/color settings with a `# managed by stylix` note to avoid build errors.

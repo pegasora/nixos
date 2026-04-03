@@ -24,10 +24,12 @@ This is a modular NixOS flake configuration for two machines (`nixos` and `olymp
 - **home-manager** — user dotfile/app management, integrated as a NixOS module
 - **stylix** — unified theming (kanagawa dark)
 - **niri** — Wayland compositor (primary WM)
+- **noctalia** — bar/shell, configured declaratively via `programs.noctalia-shell` in `modules/home-manager/utils/noctalia.nix`
 - **spicetify-nix** — Spotify customization
 - **nvf-flake** — custom Neovim config
 - **disko** — automated disk partitioning
 - **claude-code** / **claude-desktop** — Anthropic tools
+- **fw-fanctrl** removed — now uses `hardware.fw-fanctrl` from nixpkgs directly
 
 ### Module Layout
 
