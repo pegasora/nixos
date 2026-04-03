@@ -163,7 +163,7 @@
     ## ## ## ## ##
     ##  neovim  ##
     ## ## ## ## ##
-    inputs.nvf-flake.packages.${pkgs.system}.default
+    inputs.nvf-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
     ripgrep
     gnumake
     ruff

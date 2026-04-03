@@ -10,7 +10,7 @@
     inputs.niri.homeModules.niri
   ];
 
-  programs.niri.package = inputs.niri.packages.${pkgs.system}.niri-unstable.overrideAttrs (old: {
+  programs.niri.package = inputs.niri.packages.${pkgs.stdenv.hostPlatform.system}.niri-unstable.overrideAttrs (old: {
     doCheck = false;
   });
   # Home Manager needs a bit of information about you and the paths it should
@@ -85,6 +85,9 @@
       };
     };
   };
+
+  # keep gtk4 theme in sync with gtk3 (default changed in 26.05)
+  gtk.gtk4.theme = config.gtk.theme;
 
   fonts.fontconfig.enable = true;
 

@@ -2,6 +2,7 @@
   programs.yazi = {
     enable = true;
     enableFishIntegration = true;
+    shellWrapperName = "yy"; # keep legacy default (was changed in 26.05)
 
     keymap.mgr.prepend_keymap = [
       {

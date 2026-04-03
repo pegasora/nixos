@@ -10,7 +10,6 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
-    inputs.fw-fanctrl.nixosModules.default
     ../../modules/nixos/default.nix
     #../../modules/nixos/packages.nix
     #../../modules/nixos/services.nix
@@ -153,8 +152,8 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
-  # fw-fanctrl
-  programs.fw-fanctrl = {
+  # fw-fanctrl (using nixpkgs module — flake deprecated as of NixOS 25.11)
+  hardware.fw-fanctrl = {
     enable = true;
     config = {
       defaultStrategy = "deaf";
