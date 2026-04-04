@@ -4,6 +4,9 @@
   lib,
   ...
 }: {
+  #services.protonmail-bridge = {
+  #  enable = true;
+  #};
   # for bios updates
   services.fwupd.enable = true;
 
