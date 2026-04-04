@@ -31,6 +31,8 @@
     pdfarranger
     inputs.helium.packages.${system}.default
     evtest
+    thunderbird
+    #protonmail-bridge
 
     # plcs
     bridge-utils

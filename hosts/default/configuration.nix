@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.spicetify-nix.nixosModules.default
+    inputs.fw-fanctrl.nixosModules.default
     ../../modules/nixos/default.nix
     #../../modules/nixos/packages.nix
     #../../modules/nixos/services.nix
@@ -30,9 +31,10 @@
   nixpkgs.overlays = [
     inputs.niri.overlays.niri
     inputs.claude-desktop.overlays.default
-    #inputs.claude-code.overlays.default
+    inputs.claude-code.overlays.default
     #(import ../../overlays/winboat-fixes.nix)
-    (import ../../overlays/winboat-e3c7fb8.nix)
+    # winboat overlay no longer needed — nixpkgs now hardcodes electron_40 and dropped nodejs_24/Go fixes
+    #(import ../../overlays/winboat-e3c7fb8.nix)
   ];
 
   stylix = {
@@ -49,6 +51,7 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -152,13 +155,20 @@
   programs.appimage.enable = true;
   programs.appimage.binfmt = true;
 
-  # fw-fanctrl (using nixpkgs module — flake deprecated as of NixOS 25.11)
-  hardware.fw-fanctrl = {
+  # fw-fanctrl
+  programs.fw-fanctrl = {
     enable = true;
     config = {
       defaultStrategy = "deaf";
     };
   };
+  # nixpkgs hardware.fw-fanctrl kept for reference — reverted due to fan control issues
+  # hardware.fw-fanctrl = {
+  #   enable = true;
+  #   config = {
+  #     defaultStrategy = "deaf";
+  #   };
+  # };
 
   # group
   users.groups.pegasora = {};
