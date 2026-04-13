@@ -19,7 +19,7 @@
       cursor_trail = 13;
       cursor_trail_start_threshold = 0;
       cusror_trail_decay = "0.01 0.05";
-      cursir_shape = "block";
+      cursor_shape = "block";
     };
   };
 }

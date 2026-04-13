@@ -51,6 +51,9 @@
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pi-mono = {
+      url = "github:lukasl-dev/pi-mono.nix";
+    };
     # For Raspberry Pi hardware support (optional but recommended for Pis)
     #nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -67,6 +70,7 @@
     claude-desktop,
     stylix,
     helium,
+    pi-mono,
     ...
   } @ inputs: {
     nixosConfigurations = {

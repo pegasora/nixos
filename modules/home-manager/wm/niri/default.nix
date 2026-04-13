@@ -116,7 +116,7 @@ in {
         "super+Space".action = sh "noctalia-shell ipc call launcher toggle";
         "super+t".action.spawn = "kitty";
         #"super+shift+l".action.spawn = "hyprlock";
-        "super+e".action.spawn = "dolphin";
+        "super+e".action.spawn = "nautilus";
         "super+p".action = sh "noctalia-shell ipc call sessionMenu toggle";
         "super+o".action.spawn = "obsidian";
         "super+f".action.spawn = "helium";

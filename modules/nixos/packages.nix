@@ -33,6 +33,15 @@
     evtest
     thunderbird
     #protonmail-bridge
+    nautilus
+    inputs.pi-mono.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent
+    affine
+
+    # calendar
+    gnome-calendar
+    gnome-control-center
+    #evolution
+    #evolution-ews
 
     # plcs
     bridge-utils
@@ -71,7 +80,7 @@
     networkmanagerapplet
     libnotify
     home-manager
-    kdePackages.dolphin
+    #kdePackages.dolphin
     exfat
 
     # portals
