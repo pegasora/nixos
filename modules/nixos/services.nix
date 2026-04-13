@@ -7,6 +7,19 @@
   #services.protonmail-bridge = {
   #  enable = true;
   #};
+  # calendar
+  programs.dconf.enable = true;
+  services.gnome = {
+    evolution-data-server.enable = true;
+    gnome-online-accounts.enable = true;
+    gnome-keyring.enable = true;
+  };
+  programs.evolution = {
+    enable = true;
+    plugins = [
+      pkgs.evolution-ews
+    ];
+  };
   # for bios updates
   services.fwupd.enable = true;
 

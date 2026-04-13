@@ -136,7 +136,7 @@
         "SUPER, T, exec, ${pkgs.kitty}/bin/kitty"
         "SUPER, Q, killactive,"
         "SUPER SHIFT, L, exec, ${pkgs.hyprlock}/bin/hyprlock"
-        "SUPER, E, exec, ${pkgs.kdePackages.dolphin}/bin/dolphin"
+        "SUPER, E, exec, ${pkgs.nautilus}/bin/nautilus"
         "SUPER, SPACE, exec, ${pkgs.fuzzel}/bin/fuzzel"
         "SUPER, P, exec, ${pkgs.wlogout}/bin/wlogout"
         "SUPER, F, exec, flatpak run com.vivaldi.Vivaldi"
